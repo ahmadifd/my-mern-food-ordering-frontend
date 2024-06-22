@@ -1,7 +1,13 @@
-import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import MainNavLinks from "./MainNavLinks";
 
 const MainNav = () => {
-  return <Box>MainNav</Box>;
+  const { isAuthenticated } = useAuth();
+
+  return (
+    <>{isAuthenticated ? <MainNavLinks /> : <Link to="/login"> Login</Link>}</>
+  );
 };
 
 export default MainNav;

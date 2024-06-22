@@ -9,7 +9,7 @@ const Header = () => {
       <Box sx={{ flexGrow: 1, paddingLeft: "10%" }}>
         <Link to="/">MernEats.com</Link>
       </Box>
-      <Box  sx={{ display: "flex", paddingRight: "10%" }}>
+      <Box sx={{ display: "flex", paddingRight: "10%" }}>
         <Box sx={{ display: { md: "none" } }}>
           <MobileNav />
         </Box>
