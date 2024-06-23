@@ -46,16 +46,21 @@ const Register = () => {
           }}
           label="Name"
           size="small"
+          required
+          //error={!name}
         />
       </Box>
       <Box mt={1}>
         <TextField
+        type="email"
           value={email}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setEmail(event.target.value);
           }}
           label="Email"
           size="small"
+          required
+          //error={!email}
         />
       </Box>
 
@@ -67,6 +72,8 @@ const Register = () => {
           }}
           label="Country"
           size="small"
+          required
+          //error={!country}
         />
       </Box>
       <Box mt={1}>
@@ -77,6 +84,8 @@ const Register = () => {
           }}
           label="City"
           size="small"
+          required
+          //error={!city}
         />
       </Box>
       <Box mt={1}>
@@ -87,6 +96,8 @@ const Register = () => {
           }}
           label="addressLine1"
           size="small"
+          required
+          //error={!addressLine1}
         />
       </Box>
       <Box mt={1}>
@@ -101,6 +112,8 @@ const Register = () => {
           helperText="Please select your Type"
           value={roles}
           onChange={handleChange}
+          required
+          //error={!roles.length}
         >
           {Object.values(ROLES_LIST).map((item, index) => (
             <MenuItem key={index} value={item}>
@@ -118,6 +131,8 @@ const Register = () => {
           }}
           label="Password"
           size="small"
+          required
+          //error={!password}
         />
       </Box>
       <Box mt={1} sx={{ textAlign: "center" }}>
