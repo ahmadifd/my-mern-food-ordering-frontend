@@ -1,8 +1,18 @@
-import { Box, Button, MenuItem, TextField } from "@mui/material";
-import React, { useState } from "react";
+import { Alert, Box, Button, MenuItem, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ROLES_LIST } from "../../types/ROLES_LIST";
 import useCreateUser from "../../hooks/useCreateUser";
+
+enum AlertType {
+  success = "success",
+}
+
+type AlertState = {
+  type: AlertType;
+  message: string;
+  visible: boolean;
+};
 
 const Register = () => {
   const { createUser, isLoading, isSuccess, isError } = useCreateUser();
@@ -13,13 +23,9 @@ const Register = () => {
   const [city, setCity] = useState<string>("");
   const [addressLine1, setAddressLine1] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const [roles, setRoles] = useState<string[]>([]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setRoles(typeof value === "string" ? value.split(",") : value);
-  };
+  const [alert, setAlert] = useState<AlertState | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,8 +37,20 @@ const Register = () => {
       addressLine1,
       city,
       country,
-      password
+      password,
     });
+    setAlert({
+      message: "User created",
+      visible: true,
+      type: AlertType.success,
+    });
+    setName("");
+    setEmail("");
+    setCountry("");
+    setCity("");
+    setAddressLine1("");
+    setPassword("");
+    setRoles([]);
   };
 
   return (
@@ -43,6 +61,7 @@ const Register = () => {
           value={name}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setName(event.target.value);
+            setAlert(null);
           }}
           label="Name"
           size="small"
@@ -52,10 +71,11 @@ const Register = () => {
       </Box>
       <Box mt={1}>
         <TextField
-        type="email"
+          type="email"
           value={email}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setEmail(event.target.value);
+            setAlert(null);
           }}
           label="Email"
           size="small"
@@ -69,6 +89,7 @@ const Register = () => {
           value={country}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setCountry(event.target.value);
+            setAlert(null);
           }}
           label="Country"
           size="small"
@@ -81,6 +102,7 @@ const Register = () => {
           value={city}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setCity(event.target.value);
+            setAlert(null);
           }}
           label="City"
           size="small"
@@ -93,6 +115,7 @@ const Register = () => {
           value={addressLine1}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setAddressLine1(event.target.value);
+            setAlert(null);
           }}
           label="addressLine1"
           size="small"
@@ -111,7 +134,11 @@ const Register = () => {
           size="small"
           helperText="Please select your Type"
           value={roles}
-          onChange={handleChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const value = event.target.value;
+            setRoles(typeof value === "string" ? value.split(",") : value);
+            setAlert(null);
+          }}
           required
           //error={!roles.length}
         >
@@ -123,11 +150,12 @@ const Register = () => {
         </TextField>
       </Box>
       <Box mt={1}>
-        <TextField type="password"
+        <TextField
+          type="password"
           value={password}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value);
-            console.log(password);
+            setAlert(null);
           }}
           label="Password"
           size="small"
@@ -140,6 +168,14 @@ const Register = () => {
           Register
         </Button>
       </Box>
+
+      {alert?.visible && (
+        <Box mt={1} sx={{ textAlign: "center" }}>
+          <Alert variant="filled" severity={alert?.type}>
+            {alert?.message}
+          </Alert>
+        </Box>
+      )}
       <Box>
         <Link to="/"> Back to Home</Link>
       </Box>

@@ -6,7 +6,7 @@ import { UserAuthInfo } from "../types/UserAuthInfo.types";
 const useAuth = () => {
   const token = useAppSelector(selectCurrentToken);
   let isAdmin = false;
-  let isRestaurantOwner = false;
+  let isOwner = false;
   let isUser = false;
   let isAuthenticated = false;
 
@@ -14,16 +14,16 @@ const useAuth = () => {
     const decode = jwtDecode(token);
     const { email, roles } = decode as UserAuthInfo;
     isAdmin = roles.includes("Admin");
-    isRestaurantOwner = roles.includes("RestaurantOwner");
+    isOwner = roles.includes("Owner");
     isUser = roles.includes("User");
 
-    isAuthenticated = isAdmin || isRestaurantOwner || isUser;
+    isAuthenticated = isAdmin || isOwner || isUser;
 
     return {
       email,
       roles,
       isAdmin,
-      isRestaurantOwner,
+      isOwner,
       isUser,
       isAuthenticated,
     };
@@ -33,7 +33,7 @@ const useAuth = () => {
     email: "",
     roles: [],
     isAdmin,
-    isRestaurantOwner,
+    isOwner,
     isUser,
     isAuthenticated,
   };

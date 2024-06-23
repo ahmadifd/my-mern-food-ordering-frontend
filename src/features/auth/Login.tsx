@@ -1,21 +1,30 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "./authApiSlice";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  
+  const navigate = useNavigate();
+  const [login, { isLoading }] = useLoginMutation();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    try {
+      await login({
+        email,
+        password,
+      }).unwrap();
+      navigate("/");
+    } catch (error) {}
   };
   return (
-    <Box  component="form" onSubmit={handleSubmit}>
+    <Box component="form" onSubmit={handleSubmit}>
       <Box sx={{ textAlign: "center" }}>Login</Box>
       <Box>
-      <TextField
-        type="email"
+        <TextField
+          type="email"
           value={email}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setEmail(event.target.value);
@@ -27,11 +36,11 @@ const Login = () => {
         />
       </Box>
       <Box mt={1}>
-      <TextField type="password"
+        <TextField
+          type="password"
           value={password}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value);
-            console.log(password);
           }}
           label="Password"
           size="small"
