@@ -1,7 +1,7 @@
 import { useAppSelector } from "../app/store";
 import { selectCurrentToken } from "../features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
-import { UserAuthInfo } from "./UserAuthInfo.types";
+import { UserAuthInfo } from "../types/UserAuthInfo.types";
 
 const useAuth = () => {
   const token = useAppSelector(selectCurrentToken);

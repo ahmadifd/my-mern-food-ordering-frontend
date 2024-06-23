@@ -5,11 +5,16 @@ import Footer from "./Footer";
 
 const Layout = () => {
   return (
-    <Box sx={{ display: "grid", gridTemplateRows: "repeat(3,1fr)" }}>
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateRows: "1fr 7fr 1fr",
+        minHeight:"100vh"
+      }}
+    >
       <Header />
-      <Box>
+      <Box sx={{ display: "grid", placeContent: "center" }}>
         <Outlet />
-        Main
       </Box>
       <Footer />
     </Box>

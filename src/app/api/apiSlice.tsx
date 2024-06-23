@@ -7,7 +7,7 @@ import {
 import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:7000/",
+  baseUrl: "http://localhost:3700/",
   credentials: "include",
   prepareHeaders: (headers, api) => {
     const token = (api.getState() as RootState).auth.token;
