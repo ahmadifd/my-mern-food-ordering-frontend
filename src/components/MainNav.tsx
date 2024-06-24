@@ -3,10 +3,16 @@ import useAuth from "../hooks/useAuth";
 import MainNavLinks from "./MainNavLinks";
 
 const MainNav = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, email } = useAuth();
 
   return (
-    <>{isAuthenticated ? <MainNavLinks /> : <Link to="/login"> Login</Link>}</>
+    <>
+      {isAuthenticated ? (
+        <MainNavLinks email={email} />
+      ) : (
+        <Link to="/login"> Login</Link>
+      )}
+    </>
   );
 };
 

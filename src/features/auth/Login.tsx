@@ -19,6 +19,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {}
   };
+
   return (
     <Box component="form" onSubmit={handleSubmit}>
       <Box sx={{ textAlign: "center" }}>Login</Box>
