@@ -1,13 +1,28 @@
-import { Box, Button, TextField } from "@mui/material";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./authApiSlice";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const Login = () => {
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
+  const [persist, setPersist] = useLocalStorage<boolean>("persist", false);
+
+useEffect(()=>{
+
+},[])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,7 +31,7 @@ const Login = () => {
         email,
         password,
       }).unwrap();
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {}
   };
 
@@ -47,6 +62,18 @@ const Login = () => {
           size="small"
           required
           //error={!password}
+        />
+      </Box>
+      <Box mt={1}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={persist}
+              onChange={() => setPersist((prev: boolean) => !prev)}
+              size="small"
+            />
+          }
+          label="Trust This Device"
         />
       </Box>
       <Box mt={1} sx={{ textAlign: "center" }}>

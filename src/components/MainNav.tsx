@@ -3,14 +3,14 @@ import useAuth from "../hooks/useAuth";
 import MainNavLinks from "./MainNavLinks";
 
 const MainNav = () => {
-  const { isAuthenticated, email } = useAuth();
-
+  const { isAuthenticated, email, isOwner } = useAuth();
+  //const [persist, setPersist] = useLocalStorage("persist", false);
   return (
     <>
       {isAuthenticated ? (
-        <MainNavLinks email={email} />
+        <MainNavLinks email={email} isOwner={isOwner} />
       ) : (
-        <Link to="/login"> Login</Link>
+        <Link to="/login">Login</Link>
       )}
     </>
   );
