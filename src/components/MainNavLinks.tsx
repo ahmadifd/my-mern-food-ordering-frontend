@@ -32,7 +32,7 @@ const MainNavLinks = ({ email, isOwner }: Props) => {
   return (
     <Box>
       <Button
-        sx={{ textTransform: "none" }}
+        sx={{ textTransform: "none", fontWeight: "bold" }}
         color="inherit"
         id="resources-button"
         onClick={handleClick}
@@ -57,6 +57,7 @@ const MainNavLinks = ({ email, isOwner }: Props) => {
           <MenuItem
             onClick={() => {
               navigate("/manage-restaurant");
+              setAnchorEl(null);
             }}
           >
             Manage Restaurant
@@ -66,6 +67,7 @@ const MainNavLinks = ({ email, isOwner }: Props) => {
           <MenuItem
             onClick={() => {
               navigate("/restaurant-orders");
+              setAnchorEl(null);
             }}
           >
             Orders

@@ -2,13 +2,27 @@ import { Box } from "@mui/material";
 
 const Footer = () => {
   return (
-    <Box sx={{ display: "flex", gridRow: "" }}>
-      <Box sx={{ flexGrow: 1, paddingLeft: "10%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        backgroundColor: "info.dark",
+        color: "white",
+        fontWeight: "bold",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <Box
+        sx={{
+          textWrap: "nowrap",
+          marginLeft: "5%",
+        }}
+      >
         my-mern-frontend
       </Box>
-      <Box sx={{ display: "flex", paddingRight: "10%", columnGap: "1rem" }}>
-        <Box>Privacy Policy</Box>
-        <Box>Terms of Service</Box>
+      <Box sx={{ display: "flex", marginRight: "5%" }} columnGap={2}>
+        <Box sx={{ textWrap: "nowrap" }}>Privacy Policy</Box>
+        <Box sx={{ textWrap: "nowrap" }}>Terms of Service</Box>
       </Box>
     </Box>
   );
