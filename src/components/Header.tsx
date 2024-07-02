@@ -12,6 +12,7 @@ const Header = () => {
         backgroundColor: "grey.500",
         alignItems: "center",
       }}
+      fontSize={14}
     >
       <Box sx={{ marginLeft: "5%" }}>
         <Link to="/">my-mern-frontend</Link>

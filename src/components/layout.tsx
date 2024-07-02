@@ -13,9 +13,7 @@ const Layout = () => {
       }}
     >
       <Header />
-      <Box
-        sx={{ display: "grid", justifyContent: "center", minHeight: "100%" , paddingTop:"5%" }}
-      >
+      <Box sx={{ padding: "1em", minHeight: "100%" }}>
         <Outlet />
       </Box>
       <Footer />

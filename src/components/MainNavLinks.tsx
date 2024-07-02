@@ -1,5 +1,5 @@
 import { Box, Button, Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLogOutMutation } from "../features/auth/authApiSlice";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,8 @@ type Props = {
 };
 
 const MainNavLinks = ({ email, isOwner }: Props) => {
-  const [, setPersist] = useLocalStorage("persist", false);
+  const [localStoragePersisit, setLocalStoragePersisit] =
+    useLocalStorage<boolean>("persist", false);
   const [logOut] = useLogOutMutation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -23,10 +24,11 @@ const MainNavLinks = ({ email, isOwner }: Props) => {
   };
 
   const signOut = async () => {
-    setPersist(false);
+    setLocalStoragePersisit(false);
     setAnchorEl(null);
     await logOut(null);
-    window.location.replace("/");
+    navigate("/");
+    //window.location.replace("/");
   };
 
   return (

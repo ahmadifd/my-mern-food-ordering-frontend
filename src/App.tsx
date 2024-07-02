@@ -9,6 +9,7 @@ import RequireAuth from "./features/auth/RequireAuth";
 import { ROLES_LIST } from "./types/ROLES_LIST";
 import ManageRestaurantPage from "./features/restaurant/ManageRestaurantPage";
 import RestaurantOrdersPage from "./features/order/RestaurantOrdersPage";
+import RestaurantProvider from "./context/RestaurantProvider";
 
 function App() {
   return (
@@ -32,10 +33,16 @@ function App() {
               }
             >
               <Route path="/user-profile" element={<UserProfilePage />} />
+
               <Route
                 path="/manage-restaurant"
-                element={<ManageRestaurantPage />}
+                element={
+                  <RestaurantProvider>
+                    <ManageRestaurantPage />
+                  </RestaurantProvider>
+                }
               />
+
               <Route
                 path="/restaurant-orders"
                 element={<RestaurantOrdersPage />}

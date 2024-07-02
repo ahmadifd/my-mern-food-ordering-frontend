@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-
 const getLocalValue = <T,>(key: string, initValue: T): T => {
-  const localValue  = localStorage.getItem(key) ?? null;
+  const localValue = localStorage.getItem(key) ?? null;
 
   if (localValue) {
     return JSON.parse(localValue);
@@ -13,13 +11,15 @@ const getLocalValue = <T,>(key: string, initValue: T): T => {
 const useLocalStorage = <T,>(
   key: string,
   initValue: T
-): [T, React.Dispatch<React.SetStateAction<T>>] => {
-  const [value, setValue] = useState<T>(() => getLocalValue(key, initValue));
-
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-
+): [T, (newValue: T) => void] => {
+  const setValue = (newValue: T) => {
+    localStorage.setItem(key, JSON.stringify(newValue));
+    value = newValue;
+  };
+  let value = getLocalValue(key, initValue);
+  if (!value) {
+    setValue(getLocalValue(key, initValue));
+  }
   return [value, setValue];
 };
 

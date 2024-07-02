@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useAppSelector } from "../../app/store";
 import { selectCurrentToken } from "./authSlice";
@@ -7,10 +7,11 @@ import { useRefreshMutation } from "./authApiSlice";
 import { Box } from "@mui/material";
 
 const PersistLogin = () => {
+  const [localStoragePersisit, setLocalStoragePersisit] =
+    useLocalStorage<boolean>("persist", false);
 
-  const [persist, setPersist] = useLocalStorage("persist", false);
   const token = useAppSelector(selectCurrentToken);
-
+  const navigate = useNavigate();
   const [trueSuccess, setTrueSuccess] = useState(false);
   const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] =
     useRefreshMutation();
@@ -27,17 +28,16 @@ const PersistLogin = () => {
           "status" in error &&
           error.status === 401
         ) {
-          setPersist(false);
-          window.location.replace("/");
+          setLocalStoragePersisit(false);
+          navigate("/");
         }
       }
     };
-
-    if (!token && persist) verifyRefreshToken();
+    if (!token && localStoragePersisit) verifyRefreshToken();
   }, []);
 
   let content;
-  if (!persist) {
+  if (!localStoragePersisit) {
     content = <Outlet />;
   } else if (isLoading) {
     content = <h1>...isLoading</h1>;
