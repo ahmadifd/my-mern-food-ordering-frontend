@@ -30,6 +30,7 @@ export const getMyRestaurant = createAsyncThunk(
     const token = (api.getState() as RootState).auth.token;
     const axios = new GetAxiosAutoRefresh(token, "application/json");
     const response = await axios.get(RESTAURANT_URL + `getRestaurant`);
+    console.log(response.data);
     //axios.eject();
     return response.data;
   }
@@ -45,11 +46,8 @@ export const createMyRestaurant = createAsyncThunk(
         "http://localhost:3800/my/restaurant/createRestaurant",
         { data: formData }
       );
-      console.log(response.data);
       return response.data;
-    } catch (error) {
-      console.log("error", error);
-    }
+    } catch (error) {}
   }
 );
 
@@ -65,9 +63,7 @@ export const editMyRestaurant = createAsyncThunk(
       );
       console.log(response.data);
       return response.data;
-    } catch (error) {
-      console.log("error", error);
-    }
+    } catch (error) {}
   }
 );
 
@@ -81,8 +77,7 @@ const myRestauranSlice = createSlice({
     });
     builder.addCase(getMyRestaurant.fulfilled, (state, action) => {
       state.status = FetchingStatus.succeeded;
-      const data = action.payload.data;
-      console.log(data);
+      const data = action.payload;
       const restaurant = {
         details: {
           restaurantName: data.restaurantName,
@@ -95,6 +90,7 @@ const myRestauranSlice = createSlice({
         menuItems: data.menuItems,
         imageFile: null,
         imageUrl: data.imageUrl,
+        isEditing: true,
       };
 
       state.restaurantInfo = restaurant;
@@ -104,11 +100,43 @@ const myRestauranSlice = createSlice({
     });
     builder.addCase(createMyRestaurant.fulfilled, (state, action) => {
       state.status = FetchingStatus.succeeded;
-      state.restaurantInfo = action.payload;
+      const data = action.payload;
+      const restaurant = {
+        details: {
+          restaurantName: data.restaurantName,
+          city: data.city,
+          country: data.country,
+          deliveryPrice: data.deliveryPrice,
+          estimatedDeliveryTime: data.estimatedDeliveryTime,
+        },
+        cuisines: data.cuisines,
+        menuItems: data.menuItems,
+        imageFile: null,
+        imageUrl: data.imageUrl,
+        isEditing: true,
+      };
+
+      state.restaurantInfo = restaurant;
     });
     builder.addCase(editMyRestaurant.fulfilled, (state, action) => {
       state.status = FetchingStatus.succeeded;
-      //state.restaurantInfo = action.payload;
+      const data = action.payload;
+      const restaurant = {
+        details: {
+          restaurantName: data.restaurantName,
+          city: data.city,
+          country: data.country,
+          deliveryPrice: data.deliveryPrice,
+          estimatedDeliveryTime: data.estimatedDeliveryTime,
+        },
+        cuisines: data.cuisines,
+        menuItems: data.menuItems,
+        imageFile: null,
+        imageUrl: data.imageUrl,
+        isEditing: true,
+      };
+
+      state.restaurantInfo = restaurant;
     });
   },
 });

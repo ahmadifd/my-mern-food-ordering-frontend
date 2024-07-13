@@ -31,7 +31,7 @@ const RestaurantProvider = ({ children }: ChildrenType) => {
   const dispatch = useAppDispatch();
 
   const currentRestaurant = useAppSelector(myRestaurant);
-  console.log(currentRestaurant);
+  //console.log(currentRestaurant);
   // useEffect(() => {
   //   if (currentRestaurant)
   //     {
@@ -67,6 +67,7 @@ const RestaurantProvider = ({ children }: ChildrenType) => {
 
   useEffect(() => {
     if (currentRestaurant) {
+      console.log('dddddddddddddddd',currentRestaurant.imageUrl);
       setRestaurant({ ...currentRestaurant, isEditing: true });
       setDetails(currentRestaurant?.details!);
       setCuisines(currentRestaurant?.cuisines!);
