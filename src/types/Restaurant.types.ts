@@ -1,5 +1,5 @@
 export type DetailsType = {
-  name: string;
+  restaurantName: string;
   city: string;
   country: string;
   deliveryPrice: string;
@@ -7,13 +7,15 @@ export type DetailsType = {
 };
 
 export type RestaurantType = {
-  details: DetailsType;
+  details: DetailsType | null;
   cuisines: string[] | null;
-  menu:
+  menuItems:
     | {
         name: string;
         price: string;
       }[]
     | null;
-  file: File | null;
+  imageFile: File | null;
+  imageUrl: string | null;
+  isEditing: boolean;
 };

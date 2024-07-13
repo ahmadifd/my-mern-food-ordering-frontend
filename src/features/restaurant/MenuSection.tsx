@@ -1,15 +1,18 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useContext } from "react";
-import { RestaurantContext } from "../../context/RestaurantProvider";
-import { RestaurantType } from "../../types/Restaurant.types";
+import { memo } from "react";
 import useMenuArray from "../../hooks/useMenuArray";
+import { MenuType } from "../../types/Menu.types";
 
-const MenuSection = () => {
-  const { restaurant, setRestaurant } = useContext(RestaurantContext);
-  console.log("MenuSection");
-  const { setMenu, appendMenu, removeMenu } = useMenuArray(
-    restaurant as RestaurantType,
-    setRestaurant
+type PropsType = {
+  menuItems: MenuType[];
+  updateMenu: (menu: MenuType[]) => void;
+};
+
+const MenuSection = ({ menuItems, updateMenu }: PropsType) => {
+  //console.log("MenuSection", menu);
+  const { changeMenu, appendMenu, removeMenu } = useMenuArray(
+    menuItems,
+    updateMenu
   );
 
   return (
@@ -27,7 +30,7 @@ const MenuSection = () => {
           rowGap: "0.3em",
         }}
       >
-        {restaurant?.menu?.map((item, index) => (
+        {menuItems?.map((item, index) => (
           <Box
             key={index}
             sx={{
@@ -40,7 +43,7 @@ const MenuSection = () => {
             <TextField
               value={item.name}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setMenu(index, { ...item, name: event.target.value });
+                changeMenu(index, { ...item, name: event.target.value });
               }}
               label={`Name`}
               size="small"
@@ -50,7 +53,7 @@ const MenuSection = () => {
             <TextField
               value={item.price}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setMenu(index, { ...item, price: event.target.value });
+                changeMenu(index, { ...item, price: event.target.value });
               }}
               label={`Price`}
               size="small"
@@ -85,4 +88,17 @@ const MenuSection = () => {
   );
 };
 
-export default MenuSection;
+const areEqual = (prevProps: PropsType, nextProps: PropsType) => {
+  return (
+    prevProps.menuItems.length === nextProps.menuItems.length &&
+    prevProps.menuItems.every(
+      (item, index) =>
+        item.name === nextProps.menuItems[index].name &&
+        item.price === nextProps.menuItems[index].price
+    )
+  );
+};
+
+const memoizedMenuSection = memo(MenuSection, areEqual);
+
+export default memoizedMenuSection;

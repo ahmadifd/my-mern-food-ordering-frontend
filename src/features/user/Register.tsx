@@ -3,16 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ROLES_LIST } from "../../types/ROLES_LIST";
 import useCreateUser from "../../hooks/useCreateUser";
+import { AlertState, AlertType } from "../../types/Alert.types";
 
-enum AlertType {
-  success = "success",
-}
-
-type AlertState = {
-  type: AlertType;
-  message: string;
-  visible: boolean;
-};
 
 const Register = () => {
   const { createUser, isLoading, isSuccess, isError } = useCreateUser();

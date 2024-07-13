@@ -5,23 +5,13 @@ import { ROLES_LIST } from "../../types/ROLES_LIST";
 import useGetUser from "../../hooks/useGetUser";
 import useAuth from "../../hooks/useAuth";
 import { User } from "../../types/User.types";
-
-enum AlertType {
-  success = "success",
-}
-
-type AlertState = {
-  type: AlertType;
-  message: string;
-  visible: boolean;
-};
+import { AlertState, AlertType } from "../../types/Alert.types";
 
 const UserProfilePage = () => {
-  const { email: currentEmail } = useAuth();
-  const { data } = useGetUser(currentEmail, "User1");
+  const { userId: currentuserId } = useAuth();
+  const { data } = useGetUser(currentuserId, "User1");
   const user = data?.data?.data as User;
 
-  const [_id, setID] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [country, setCountry] = useState<string>("");
@@ -30,11 +20,10 @@ const UserProfilePage = () => {
   const [password, setPassword] = useState<string>("");
   const [roles, setRoles] = useState<string[]>([]);
   const [alert, setAlert] = useState<AlertState | null>(null);
-  const { editUser, isLoading, isSuccess, isError } = useEditUser(_id);
+  const { editUser, isLoading, isSuccess, isError } = useEditUser(currentuserId);
 
   useEffect(() => {
     if (user) {
-      setID(user._id!);
       setName(user.name);
       setEmail(user?.email);
       setCountry(user?.country);
@@ -47,7 +36,7 @@ const UserProfilePage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     editUser({
-      _id,
+      _id: currentuserId,
       name,
       email,
       roles,

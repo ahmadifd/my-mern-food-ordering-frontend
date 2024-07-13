@@ -2,7 +2,7 @@ import { User } from "../types/User.types";
 import axios from "../app/api/axios";
 import { useMutation } from "react-query";
 
-const REGISTER_URL = "/user/register";
+const REGISTER_URL = "/my/user/register";
 
 export const useCreateUser = () => {
   const createUserRequest = async (user: User) => {

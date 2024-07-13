@@ -1,14 +1,15 @@
-import axios from "../app/api/axios";
 import { useQuery } from "react-query";
+import useAxiosPrivate from "./useAxiosPrivate";
 
-export const useGetUser = (email: string, cachName: string) => {
-  const GET_USER_URL = `/user/getUser/${email}`;
+export const useGetUser = (
+  userId: string,
+  cacheName: string
+) => {
+  const axiosPrivate = useAxiosPrivate();
+  const GET_USER_URL = `/my/user/getUser/${userId}`;
   const getUserRequest = async () => {
     try {
-      const response = await axios.get(GET_USER_URL, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      });
+      const response = await axiosPrivate.get(GET_USER_URL, {});
       return response;
     } catch (err) {
       console.log(err);
@@ -16,7 +17,7 @@ export const useGetUser = (email: string, cachName: string) => {
   };
 
   const { data, isLoading, isError, isSuccess } = useQuery(
-    cachName,
+    cacheName,
     getUserRequest
   );
 

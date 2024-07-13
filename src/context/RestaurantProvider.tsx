@@ -1,10 +1,23 @@
-import { ReactElement, createContext, useState } from "react";
-import { RestaurantType } from "../types/Restaurant.types";
+import { ReactElement, createContext, useEffect, useState } from "react";
+import { DetailsType, RestaurantType } from "../types/Restaurant.types";
+import { MenuType } from "../types/Menu.types";
+import { useAppDispatch, useAppSelector } from "../app/store";
+import {
+  getMyRestaurant,
+  createMyRestaurant,
+  myRestaurant,
+} from "../features/restaurant/myRestaurantSlice";
+import useAuth from "../hooks/useAuth";
 
-export type RestaurantContextType = {
+type RestaurantContextType = {
   restaurant: RestaurantType | null;
   setRestaurant: React.Dispatch<React.SetStateAction<RestaurantType>>;
-  count: number;
+  details: DetailsType;
+  setDetails: React.Dispatch<React.SetStateAction<DetailsType>>;
+  menuItems: MenuType[];
+  setMenuItems: React.Dispatch<React.SetStateAction<MenuType[]>>;
+  cuisines: string[];
+  setCuisines: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const RestaurantContext = createContext<RestaurantContextType>(
@@ -14,21 +27,66 @@ export const RestaurantContext = createContext<RestaurantContextType>(
 type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 const RestaurantProvider = ({ children }: ChildrenType) => {
+  const { userId: currentUserId } = useAuth();
+  const dispatch = useAppDispatch();
+
+  const currentRestaurant = useAppSelector(myRestaurant);
+  console.log(currentRestaurant);
+  // useEffect(() => {
+  //   if (currentRestaurant)
+  //     {
+
+  //     }
+  // }, [currentRestaurant]);
+
   const [restaurant, setRestaurant] = useState<RestaurantType>({
     details: {
-      name: "1",
-      city: "1",
-      country: "1",
-      deliveryPrice: "1",
-      estimatedDeliveryTime: "1",
+      restaurantName: currentRestaurant?.details?.restaurantName ?? "",
+      city: currentRestaurant?.details?.city ?? "",
+      country: currentRestaurant?.details?.country ?? "",
+      deliveryPrice: currentRestaurant?.details?.deliveryPrice ?? "",
+      estimatedDeliveryTime:
+        currentRestaurant?.details?.estimatedDeliveryTime ?? "",
     },
-    menu: [{ name: "1", price: "1" }],
-    cuisines: ["Pasta"],
-    file: null,
+    menuItems: [],
+    cuisines: [],
+    imageFile: null,
+    imageUrl: null,
+    isEditing: false,
   });
-  const count: number = 1;
+
+  const [details, setDetails] = useState<DetailsType>(restaurant?.details!);
+  const [menuItems, setMenuItems] = useState<MenuType[]>(
+    restaurant?.menuItems!
+  );
+  const [cuisines, setCuisines] = useState<string[]>(restaurant?.cuisines!);
+
+  useEffect(() => {
+    dispatch(getMyRestaurant());
+  }, []);
+
+  useEffect(() => {
+    if (currentRestaurant) {
+      setRestaurant({ ...currentRestaurant, isEditing: true });
+      setDetails(currentRestaurant?.details!);
+      setCuisines(currentRestaurant?.cuisines!);
+      setMenuItems(currentRestaurant?.menuItems!);
+    }
+  }, [currentRestaurant]);
+
   return (
-    <RestaurantContext.Provider value={{ restaurant, setRestaurant, count }}>
+    <RestaurantContext.Provider
+      value={{
+        details,
+        setDetails,
+        menuItems,
+        setMenuItems,
+        cuisines,
+        setCuisines,
+        restaurant,
+        setRestaurant,
+      }}
+    >
       {children}
     </RestaurantContext.Provider>
   );

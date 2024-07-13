@@ -13,7 +13,7 @@ const useAuth = () => {
   if (token) {
     const decode = jwtDecode(token);
 
-    const { email, roles } = (decode as UserAuthInfo).data;
+    const { userId, email, roles } = (decode as UserAuthInfo).data;
 
     isAdmin = roles.includes("Admin");
     isOwner = roles.includes("Owner");
@@ -22,6 +22,7 @@ const useAuth = () => {
     isAuthenticated = isAdmin || isOwner || isUser;
 
     return {
+      userId,
       email,
       roles,
       isAdmin,
@@ -32,6 +33,7 @@ const useAuth = () => {
   }
 
   return {
+    userId: "",
     email: "",
     roles: [],
     isAdmin,

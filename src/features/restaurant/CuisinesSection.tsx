@@ -6,13 +6,15 @@ import {
   FormGroup,
 } from "@mui/material";
 import { cuisineList } from "../../config/cuisineList";
-import { useContext } from "react";
-import { RestaurantContext } from "../../context/RestaurantProvider";
-import { RestaurantType } from "../../types/Restaurant.types";
+import { memo } from "react";
 
-const CuisinesSection = () => {
-  const { restaurant, setRestaurant } = useContext(RestaurantContext);
-  console.log("CuisinesSection");
+type PropsType = {
+  cuisines: string[];
+  updateCuisines: (cuisines: string[]) => void;
+};
+
+const CuisinesSection = ({ cuisines, updateCuisines }: PropsType) => {
+  //console.log("CuisinesSection", cuisines);
   return (
     <Box mt={2}>
       <hr />
@@ -29,27 +31,18 @@ const CuisinesSection = () => {
                 control={
                   <Checkbox
                     size="small"
-                    checked={restaurant?.cuisines?.includes(cuisineItem)}
+                    checked={cuisines.includes(cuisineItem)}
                     value={cuisineItem}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      const index = restaurant?.cuisines?.indexOf(
-                        event.target.value
-                      );
+                      const index = cuisines.indexOf(event.target.value);
                       if (index === -1) {
-                        const newrestaurant = { ...restaurant };
-                        newrestaurant.cuisines = [
-                          ...(restaurant?.cuisines ?? []),
-                          event.target.value,
-                        ];
-                       
-                        setRestaurant(newrestaurant as RestaurantType);
+                        const newcuisines = [...cuisines, event.target.value];
+                        updateCuisines(newcuisines);
                       } else {
-                        const newrestaurant = { ...restaurant };
-                        newrestaurant.cuisines =
-                          newrestaurant?.cuisines?.filter(
-                            (cuisine) => cuisine !== event.target.value
-                          );
-                        setRestaurant(newrestaurant as RestaurantType);
+                        const newcuisines = cuisines.filter(
+                          (cuisine) => cuisine !== event.target.value
+                        );
+                        updateCuisines(newcuisines);
                       }
                     }}
                   />
@@ -64,4 +57,15 @@ const CuisinesSection = () => {
   );
 };
 
-export default CuisinesSection;
+const areEqual = (prevProps: PropsType, nextProps: PropsType) => {
+  return (
+    prevProps.cuisines.length === nextProps.cuisines.length &&
+    prevProps.cuisines.every(
+      (item, index) => item === nextProps.cuisines[index]
+    )
+  );
+};
+
+const memoizedCuisinesSection = memo(CuisinesSection, areEqual);
+
+export default memoizedCuisinesSection;

@@ -4,25 +4,25 @@ import { memo } from "react";
 
 type PropsType = {
   details: DetailsType;
-  setDetails: React.Dispatch<React.SetStateAction<DetailsType>>;
+  updateDetails: (details: DetailsType) => void;
 };
 
-const DetailsSection = ({ details, setDetails }: PropsType) => {
-  console.log("DetailsSection");
+const DetailsSection = ({ details, updateDetails }: PropsType) => {
+  //console.log("DetailsSection", details);
   return (
     <Box>
       <Box sx={{ fontWeight: "bold" }}>Details</Box>
       <Box mt={1}>
         <TextField
-          value={details.name}
+          value={details.restaurantName}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const newdetails = { ...details };
-            newdetails.name = event.target.value;
-            setDetails(newdetails);
+            newdetails.restaurantName = event.target.value;
+            updateDetails(newdetails);
           }}
           label="Name"
           size="small"
-          required
+         
         />
       </Box>
       <Box mt={1} sx={{ display: "flex", columnGap: "1em" }}>
@@ -32,7 +32,7 @@ const DetailsSection = ({ details, setDetails }: PropsType) => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const newdetails = { ...details };
               newdetails.city = event.target.value;
-              setDetails(newdetails);
+              updateDetails(newdetails);
             }}
             label="City"
             size="small"
@@ -46,7 +46,7 @@ const DetailsSection = ({ details, setDetails }: PropsType) => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const newdetails = { ...details };
               newdetails.country = event.target.value;
-              setDetails(newdetails);
+              updateDetails(newdetails);
             }}
             label="Country"
             size="small"
@@ -61,7 +61,7 @@ const DetailsSection = ({ details, setDetails }: PropsType) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const newdetails = { ...details };
             newdetails.deliveryPrice = event.target.value;
-            setDetails(newdetails);
+            updateDetails(newdetails);
           }}
           label="Delivery price"
           size="small"
@@ -76,7 +76,7 @@ const DetailsSection = ({ details, setDetails }: PropsType) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const newdetails = { ...details };
             newdetails.estimatedDeliveryTime = event.target.value;
-            setDetails(newdetails);
+            updateDetails(newdetails);
           }}
           label="Estimated Delivery Time (minutes)"
           size="small"
@@ -88,18 +88,17 @@ const DetailsSection = ({ details, setDetails }: PropsType) => {
   );
 };
 
-const areEqual = (prevProps:PropsType, nextProps : PropsType) => {
-  return prevProps.details.name === nextProps.details.name 
-  && prevProps.details.city === nextProps.details.city
-  && prevProps.details.country === nextProps.details.country
-  && prevProps.details.deliveryPrice === nextProps.details.deliveryPrice
-  && prevProps.details.estimatedDeliveryTime === nextProps.details.estimatedDeliveryTime
-}
+const areEqual = (prevProps: PropsType, nextProps: PropsType) => {
+  const equal = Object.keys(prevProps.details).every((key) => {
+    return (
+      prevProps.details[key as keyof DetailsType] ===
+      nextProps.details[key as keyof DetailsType]
+    );
+  });
 
+  return equal;
+};
 
-const memoizedDetailsSection = memo(DetailsSection, areEqual)
+const memoizedDetailsSection = memo(DetailsSection, areEqual);
 
 export default memoizedDetailsSection;
-
-
-

@@ -1,36 +1,27 @@
-import { useState } from "react";
-import { RestaurantType } from "../types/Restaurant.types";
-
-type MenuType = {
-  name: string;
-  price: string;
-};
+import { MenuType } from "../types/Menu.types";
 
 const useMenuArray = (
-  restaurant: RestaurantType,
-  setRestaurant: React.Dispatch<React.SetStateAction<RestaurantType>>
+  menu: MenuType[],
+  updateMenu: (menuItems: MenuType[]) => void
 ) => {
-  const appendMenu = (menu: MenuType) => {
-    const newrestaurant = { ...restaurant };
-    newrestaurant.menu = [...(restaurant.menu ?? []), menu];
-    setRestaurant(newrestaurant as RestaurantType);
+  const appendMenu = (item: MenuType) => {
+    const newmenu = [...menu, item];
+    updateMenu(newmenu);
   };
-  const setMenu = (index: number, menu: MenuType) => {
-    const newrestaurant = { ...restaurant };
-    newrestaurant.menu = [
-      ...(restaurant.menu?.slice(0, index) ?? []),
-      { ...menu },
-      ...(restaurant.menu?.slice(index + 1, restaurant.menu?.length) ?? []),
+  const changeMenu = (index: number, item: MenuType) => {
+    const newmenu = [
+      ...menu?.slice(0, index),
+      item,
+      ...menu?.slice(index + 1, menu?.length),
     ];
-    setRestaurant(newrestaurant as RestaurantType);
+    updateMenu(newmenu);
   };
   const removeMenu = (index: number) => {
-    const newrestaurant = { ...restaurant };
-    newrestaurant.menu =
-      restaurant.menu?.filter((_item, itemindex) => itemindex !== index) ?? [];
-    setRestaurant(newrestaurant as RestaurantType);
+    const newmenu =
+      menu?.filter((_item, itemindex) => itemindex !== index) ?? [];
+    updateMenu(newmenu);
   };
-  return { setMenu, appendMenu, removeMenu };
+  return { changeMenu, appendMenu, removeMenu };
 };
 
 export default useMenuArray;

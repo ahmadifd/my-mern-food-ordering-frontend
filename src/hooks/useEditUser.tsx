@@ -1,14 +1,13 @@
 import { User } from "../types/User.types";
-import axios from "../app/api/axios";
 import { useMutation } from "react-query";
+import useAxiosPrivate from "./useAxiosPrivate";
 
 export const useEditUser = (id: string) => {
-  const EDIT_USER_URL = `/user/editUser/${id}`;
+  const axiosPrivate = useAxiosPrivate();
+  const EDIT_USER_URL = `/my/user/editUser/${id}`;
   const editUserRequest = async (user: User) => {
     try {
-      await axios.patch(EDIT_USER_URL, JSON.stringify(user), {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
+      await axiosPrivate.patch(EDIT_USER_URL, JSON.stringify(user), {
       });
     } catch (err) {
       console.log(err);
