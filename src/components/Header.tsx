@@ -11,6 +11,7 @@ const Header = () => {
         justifyContent: "space-between",
         backgroundColor: "grey.500",
         alignItems: "center",
+        height: "100%",
       }}
       fontSize={14}
     >

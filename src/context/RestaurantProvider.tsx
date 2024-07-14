@@ -27,17 +27,9 @@ export const RestaurantContext = createContext<RestaurantContextType>(
 type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 const RestaurantProvider = ({ children }: ChildrenType) => {
-  const { userId: currentUserId } = useAuth();
   const dispatch = useAppDispatch();
 
   const currentRestaurant = useAppSelector(myRestaurant);
-  //console.log(currentRestaurant);
-  // useEffect(() => {
-  //   if (currentRestaurant)
-  //     {
-
-  //     }
-  // }, [currentRestaurant]);
 
   const [restaurant, setRestaurant] = useState<RestaurantType>({
     details: {
@@ -67,7 +59,6 @@ const RestaurantProvider = ({ children }: ChildrenType) => {
 
   useEffect(() => {
     if (currentRestaurant) {
-      console.log('dddddddddddddddd',currentRestaurant.imageUrl);
       setRestaurant({ ...currentRestaurant, isEditing: true });
       setDetails(currentRestaurant?.details!);
       setCuisines(currentRestaurant?.cuisines!);

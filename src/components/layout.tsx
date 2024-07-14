@@ -8,15 +8,19 @@ const Layout = () => {
     <Box
       sx={{
         display: "grid",
-        gridTemplateRows: "1fr 10fr 1fr",
         minHeight: "100vh",
       }}
     >
-      <Header />
-      <Box sx={{ padding: "1em", minHeight: "100%" }}>
+      <Box sx={{ height: "10vh" }}>
+        <Header />
+      </Box>
+
+      <Box sx={{ padding: "1em", minHeight: "80vh" }}>
         <Outlet />
       </Box>
-      <Footer />
+      <Box sx={{ height: "10vh" }}>
+        <Footer />
+      </Box>
     </Box>
   );
 };

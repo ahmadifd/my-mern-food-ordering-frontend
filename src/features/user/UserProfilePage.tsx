@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import useEditUser from "../../hooks/useEditUser";
-import { Alert, Box, Button, MenuItem, TextField } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  MenuItem,
+  Snackbar,
+  TextField,
+} from "@mui/material";
 import { ROLES_LIST } from "../../types/ROLES_LIST";
 import useGetUser from "../../hooks/useGetUser";
 import useAuth from "../../hooks/useAuth";
@@ -20,7 +27,8 @@ const UserProfilePage = () => {
   const [password, setPassword] = useState<string>("");
   const [roles, setRoles] = useState<string[]>([]);
   const [alert, setAlert] = useState<AlertState | null>(null);
-  const { editUser, isLoading, isSuccess, isError } = useEditUser(currentuserId);
+  const { editUser, isLoading, isSuccess,isError } =
+    useEditUser(currentuserId);
 
   useEffect(() => {
     if (user) {
@@ -66,7 +74,6 @@ const UserProfilePage = () => {
             value={name}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setName(event.target.value);
-              setAlert(null);
             }}
             label="Name"
             size="small"
@@ -80,7 +87,6 @@ const UserProfilePage = () => {
             value={email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setEmail(event.target.value);
-              setAlert(null);
             }}
             label="Email"
             size="small"
@@ -94,7 +100,6 @@ const UserProfilePage = () => {
             value={country}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setCountry(event.target.value);
-              setAlert(null);
             }}
             label="Country"
             size="small"
@@ -107,7 +112,6 @@ const UserProfilePage = () => {
             value={city}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setCity(event.target.value);
-              setAlert(null);
             }}
             label="City"
             size="small"
@@ -120,7 +124,6 @@ const UserProfilePage = () => {
             value={addressLine1}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setAddressLine1(event.target.value);
-              setAlert(null);
             }}
             label="addressLine1"
             size="small"
@@ -142,7 +145,6 @@ const UserProfilePage = () => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const value = event.target.value;
               setRoles(typeof value === "string" ? value.split(",") : value);
-              setAlert(null);
             }}
             required
             //error={!roles.length}
@@ -160,7 +162,6 @@ const UserProfilePage = () => {
             value={password}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setPassword(event.target.value);
-              setAlert(null);
             }}
             label="Password"
             size="small"
@@ -173,11 +174,18 @@ const UserProfilePage = () => {
         </Box>
 
         {alert?.visible && (
-          <Box mt={1} sx={{ textAlign: "center" }}>
+          <Snackbar
+            open={alert?.visible}
+            autoHideDuration={3000}
+            onClose={() => {
+              setAlert(null);
+            }}
+          anchorOrigin={{vertical:"top" , horizontal:"center"}}
+          >
             <Alert variant="filled" severity={alert?.type}>
               {alert?.message}
             </Alert>
-          </Box>
+          </Snackbar>
         )}
       </Box>
     </Box>

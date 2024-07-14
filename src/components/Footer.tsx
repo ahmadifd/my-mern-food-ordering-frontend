@@ -10,7 +10,9 @@ const Footer = () => {
         fontWeight: "bold",
         justifyContent: "space-between",
         alignItems: "center",
-      }} fontSize={14}
+        height: "100%",
+      }}
+      fontSize={14}
     >
       <Box
         sx={{

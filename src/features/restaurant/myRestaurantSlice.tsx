@@ -1,7 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  SerializedError,
+} from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { GetAxiosAutoRefresh } from "../../app/api/axios";
 import { RestaurantType } from "../../types/Restaurant.types";
+import CustomError from "../../classes/CustomError";
 
 enum FetchingStatus {
   "idle",
@@ -12,7 +17,7 @@ enum FetchingStatus {
 
 interface myRestaurantState {
   status: FetchingStatus;
-  error?: string | null;
+  error: SerializedError | null;
   restaurantInfo: RestaurantType | null;
 }
 
@@ -30,8 +35,8 @@ export const getMyRestaurant = createAsyncThunk(
     const token = (api.getState() as RootState).auth.token;
     const axios = new GetAxiosAutoRefresh(token, "application/json");
     const response = await axios.get(RESTAURANT_URL + `getRestaurant`);
-    console.log(response.data);
-    //axios.eject();
+    if (!response.data) throw new Error("No Content");
+
     return response.data;
   }
 );
@@ -40,14 +45,13 @@ export const createMyRestaurant = createAsyncThunk(
   "restaurant/createRestaurant",
   async (formData: FormData, api) => {
     const token = (api.getState() as RootState).auth.token;
-    try {
-      const axios = new GetAxiosAutoRefresh(token, "multipart/form-data");
-      const response = await axios.post(
-        "http://localhost:3800/my/restaurant/createRestaurant",
-        { data: formData }
-      );
-      return response.data;
-    } catch (error) {}
+
+    const axios = new GetAxiosAutoRefresh(token, "multipart/form-data");
+    const response = await axios.post(
+      "http://localhost:3800/my/restaurant/createRestaurant",
+      { data: formData }
+    );
+    return response.data;
   }
 );
 
@@ -55,15 +59,13 @@ export const editMyRestaurant = createAsyncThunk(
   "restaurant/editRestaurant",
   async (formData: FormData, api) => {
     const token = (api.getState() as RootState).auth.token;
-    try {
-      const axios = new GetAxiosAutoRefresh(token, "multipart/form-data");
-      const response = await axios.put(
-        "http://localhost:3800/my/restaurant/editRestaurant",
-        { data: formData }
-      );
-      console.log(response.data);
-      return response.data;
-    } catch (error) {}
+
+    const axios = new GetAxiosAutoRefresh(token, "multipart/form-data");
+    const response = await axios.put(
+      "http://localhost:3800/my/restaurant/editRestaurant",
+      { data: formData }
+    );
+    return response.data;
   }
 );
 
@@ -135,13 +137,18 @@ const myRestauranSlice = createSlice({
         imageUrl: data.imageUrl,
         isEditing: true,
       };
-
       state.restaurantInfo = restaurant;
+    });
+    builder.addCase(editMyRestaurant.rejected, (state, action) => {
+      state.error = action.error;
+      state.status = FetchingStatus.failed;
     });
   },
 });
 
 export const myRestaurant = (state: RootState) =>
   state.myRestaurant.restaurantInfo;
+
+export const restaurantError = (state: RootState) => state.myRestaurant.error;
 
 export default myRestauranSlice.reducer;

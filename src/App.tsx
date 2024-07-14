@@ -16,9 +16,15 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/login" element={<Login />} />
-
           <Route element={<PersistLogin />}>
+            <Route
+              path="/login"
+              element={
+              
+                  <Login />
+             
+              }
+            />
             <Route index element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route
@@ -32,7 +38,14 @@ function App() {
                 />
               }
             >
-              <Route path="/user-profile" element={<UserProfilePage />} />
+              <Route
+                path="/user-profile"
+                element={
+             
+                    <UserProfilePage />
+               
+                }
+              />
 
               <Route
                 path="/manage-restaurant"

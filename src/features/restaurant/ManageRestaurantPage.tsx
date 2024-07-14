@@ -1,4 +1,4 @@
-import { Alert, Box, Button } from "@mui/material";
+import { Alert, Box, Button, Snackbar } from "@mui/material";
 import CuisinesSection from "./CuisinesSection";
 import DetailsSection from "./DetailsSection";
 import ImageSection from "./ImageSection";
@@ -7,12 +7,13 @@ import { useContext, useEffect, useState } from "react";
 import { RestaurantContext } from "../../context/RestaurantProvider";
 import { DetailsType, RestaurantType } from "../../types/Restaurant.types";
 import { MenuType } from "../../types/Menu.types";
-import { AlertState } from "../../types/Alert.types";
-import { useAppDispatch } from "../../app/store";
+import { AlertState, AlertType } from "../../types/Alert.types";
+import { useAppDispatch, useAppSelector } from "../../app/store";
 import {
   createMyRestaurant,
   editMyRestaurant,
 } from "../restaurant/myRestaurantSlice";
+import { AxiosError } from "axios";
 
 const ManageRestaurantPage = () => {
   const dispatch = useAppDispatch();
@@ -42,7 +43,7 @@ const ManageRestaurantPage = () => {
     );
     formData.append(
       "estimatedDeliveryTime",
-      (Number(restaurant!.details!.estimatedDeliveryTime)).toString()
+      Number(restaurant!.details!.estimatedDeliveryTime).toString()
     );
     restaurant!.cuisines!.forEach((cuisine, index) => {
       formData.append(`cuisines[${index}]`, cuisine);
@@ -57,8 +58,24 @@ const ManageRestaurantPage = () => {
 
     formData.append(`imageFile`, restaurant!.imageFile!);
 
-    if (restaurant?.isEditing) dispatch(editMyRestaurant(formData));
-    else dispatch(createMyRestaurant(formData));
+    try {
+      if (restaurant?.isEditing) {
+        await dispatch(editMyRestaurant(formData)).unwrap();
+      } else {
+        await dispatch(createMyRestaurant(formData)).unwrap();
+      }
+      setAlert({
+        message: "Restaurant Updated",
+        visible: true,
+        type: AlertType.success,
+      });
+    } catch (error) {
+      setAlert({
+        message: (error as AxiosError).message,
+        visible: true,
+        type: AlertType.error,
+      });
+    }
   };
 
   useEffect(() => {
@@ -103,11 +120,18 @@ const ManageRestaurantPage = () => {
       </Box>
 
       {alert?.visible && (
-        <Box mt={1} sx={{ textAlign: "center" }}>
+        <Snackbar
+          open={alert?.visible}
+          autoHideDuration={6000}
+          onClose={() => {
+            setAlert(null);
+          }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
           <Alert variant="filled" severity={alert?.type}>
-            {alert?.message}
+            {alert.message}
           </Alert>
-        </Box>
+        </Snackbar>
       )}
     </Box>
   );
