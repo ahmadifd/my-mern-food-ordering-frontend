@@ -45,6 +45,15 @@ const SearchPage = () => {
       page: 1,
     }));
   };
+
+  const setSortOption = (sortOption: string) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      sortOption,
+      page: 1,
+    }));
+  };
+
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
@@ -71,7 +80,6 @@ const SearchPage = () => {
           </Box>
           <Box
             sx={{
-            
               display: "flex",
               textWrap: "nowrap",
               alignItems: "center",
@@ -85,14 +93,18 @@ const SearchPage = () => {
               sx={{
                 marginLeft: "auto",
               }}
+              mt={1}
             >
-              <SortOptionDropdown />
+              <SortOptionDropdown
+                sortOption={searchState.sortOption}
+                onChange={(value) => setSortOption(value)}
+              />
             </Box>
           </Box>
           <Box>
             <SearchResultCard />
           </Box>
-          <Box sx={{display:"grid", justifyContent:"center"}}>
+          <Box sx={{ display: "grid", justifyContent: "center" }}>
             <PaginationSelector />
           </Box>
         </Box>
