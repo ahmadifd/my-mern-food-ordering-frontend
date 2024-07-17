@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
-import SearchBar from "../features/search/SearchBar";
+
 import { useNavigate } from "react-router-dom";
+import HomeSearchBar from "./HomeSearchBar";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Home = () => {
         minHeight: "100%",
       }}
     >
-      <SearchBar
+      <HomeSearchBar
         placeHolder="Search by City or Town"
         onSubmit={handleSearchSubmit}
       />

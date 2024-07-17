@@ -10,6 +10,7 @@ import { ROLES_LIST } from "./types/ROLES_LIST";
 import ManageRestaurantPage from "./features/restaurant/ManageRestaurantPage";
 import RestaurantOrdersPage from "./features/order/RestaurantOrdersPage";
 import RestaurantProvider from "./context/RestaurantProvider";
+import SearchPage from "./features/search/SearchPage";
 
 function App() {
   return (
@@ -17,15 +18,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route element={<PersistLogin />}>
-            <Route
-              path="/login"
-              element={
-              
-                  <Login />
-             
-              }
-            />
+            <Route path="/login" element={<Login />} />
             <Route index element={<Home />} />
+            <Route path="search/:city" element={<SearchPage />} />
             <Route path="/register" element={<Register />} />
             <Route
               element={
@@ -38,14 +33,7 @@ function App() {
                 />
               }
             >
-              <Route
-                path="/user-profile"
-                element={
-             
-                    <UserProfilePage />
-               
-                }
-              />
+              <Route path="/user-profile" element={<UserProfilePage />} />
 
               <Route
                 path="/manage-restaurant"

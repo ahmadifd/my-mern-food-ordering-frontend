@@ -1,23 +1,31 @@
 import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
 
 type PropsType = {
-  placeHolder: string;
   onSubmit: (searchQuery: string) => void;
+  placeHolder: string;
+  onReset?: () => void;
+  searchQuery?: string;
 };
 
-const SearchBar = ({ placeHolder, onSubmit }: PropsType) => {
-  const [search, setSearch] = useState<string>("");
-
+const SearchBar = ({
+  placeHolder,
+  onSubmit,
+  onReset,
+  searchQuery,
+}: PropsType) => {
+  const [error, setError] = useState(false);
   return (
-    <TextField
-      value={search}
+    <TextField fullWidth
+      error={error}
+      value={searchQuery}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value);
+        onSubmit(event.target.value);
+        setError(false);
       }}
-      sx={{ minWidth: "80vw" }}
+    size="small"
       label={placeHolder}
       InputProps={{
         endAdornment: (
@@ -26,14 +34,16 @@ const SearchBar = ({ placeHolder, onSubmit }: PropsType) => {
               edge="end"
               color="primary"
               onClick={() => {
-                setSearch("");
+                if (onReset) onReset();
+                setError(false);
               }}
             >
               <CloseIcon />
             </IconButton>
             <IconButton
               onClick={() => {
-                onSubmit("search");
+                if (!searchQuery) return setError(true);
+                onSubmit(searchQuery);
               }}
               edge="end"
               color="primary"
@@ -46,5 +56,4 @@ const SearchBar = ({ placeHolder, onSubmit }: PropsType) => {
     />
   );
 };
-
 export default SearchBar;

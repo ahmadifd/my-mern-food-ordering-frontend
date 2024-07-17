@@ -6,7 +6,6 @@ import {
 import { RootState } from "../../app/store";
 import { GetAxiosAutoRefresh } from "../../app/api/axios";
 import { RestaurantType } from "../../types/Restaurant.types";
-import CustomError from "../../classes/CustomError";
 
 enum FetchingStatus {
   "idle",

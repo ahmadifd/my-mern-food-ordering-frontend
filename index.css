@@ -17,3 +17,16 @@ input[type="text"] {
 button {
   text-transform: none !important;
 }
+
+.searchPage {
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-areas: "s-c s-c s-b s-b s-b s-b s-b s-b s-b";
+}
+
+.searchPage-cusine {
+  grid-area: s-c;
+}
+
+.searchPage-searchBar {
+  grid-area: s-b;
+}
