@@ -1,9 +1,26 @@
+import { Box, Pagination } from "@mui/material";
 
+type Props = {
+  page: number;
+  pages: number;
+  onPageChange: (page: number) => void;
+};
 
-const PaginationSelector = () => {
+const PaginationSelector = ({ page, pages, onPageChange }: Props) => {
   return (
-    <div>PaginationSelector</div>
-  )
-}
+    <>
+      {pages > 0 && (
+        <Box>
+          <Pagination
+            count={pages}
+            onChange={(event: React.ChangeEvent<unknown>, value: number) => {
+              onPageChange(value);
+            }}
+          />
+        </Box>
+      )}
+    </>
+  );
+};
 
-export default PaginationSelector
+export default PaginationSelector;

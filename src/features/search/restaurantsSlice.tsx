@@ -78,6 +78,8 @@ const restauranSlice = createSlice({
       );
       state.count = action.payload.data.length;
 
+      console.log(loadedRestaurants);
+
       restaurantsAdapter.removeAll(state);
       restaurantsAdapter.upsertMany(state, loadedRestaurants);
     });

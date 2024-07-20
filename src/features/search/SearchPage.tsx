@@ -20,19 +20,20 @@ export type SearchState = {
   selectedCuisines: string[];
   sortOption: string;
 };
-
+const pageSize = 5;
 const SearchPage = () => {
   const { city } = useParams();
   const dispatch = useAppDispatch();
   const restaurants = useAppSelector(selectSearchedRestaurants);
   const restaurantsCount = useAppSelector(searchRestaurantsCount);
 
-console.log(restaurants);
+  console.log(restaurants);
 
   const createSearchRequest = () => {
     const params = new URLSearchParams();
     params.set("searchQuery", searchState.searchQuery);
     params.set("page", searchState.page.toString());
+    params.set("pageSize", pageSize.toString());
     params.set("selectedCuisines", searchState.selectedCuisines.join(","));
     params.set("sortOption", searchState.sortOption);
     dispatch(searchRestaurant({ city, params }));
@@ -86,6 +87,13 @@ console.log(restaurants);
     }));
   };
 
+  const setPage = (page: number) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      page,
+    }));
+  };
+
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
@@ -134,10 +142,16 @@ console.log(restaurants);
             </Box>
           </Box>
           <Box>
-            <SearchResultCard />
+            {restaurants.map((restaurant, index) => (
+              <SearchResultCard key={index} restaurant={restaurant} />
+            ))}
           </Box>
           <Box sx={{ display: "grid", justifyContent: "center" }}>
-            <PaginationSelector />
+            <PaginationSelector
+              page={searchState.page}
+              pages={Math.ceil(restaurantsCount / pageSize)}
+              onPageChange={setPage}
+            />
           </Box>
         </Box>
       </Grid>
