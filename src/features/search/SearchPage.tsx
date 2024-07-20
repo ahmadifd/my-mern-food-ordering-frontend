@@ -1,11 +1,18 @@
 import { Box, Grid } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CuisineFilter from "./CuisineFilter";
 import SearchBar from "./SearchBar";
 import SearchResultInfo from "./SearchResultInfo";
 import SortOptionDropdown from "./SortOptionDropdown";
 import PaginationSelector from "./PaginationSelector";
 import SearchResultCard from "./SearchResultCard";
+import { useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/store";
+import {
+  searchRestaurant,
+  searchRestaurantsCount,
+  selectSearchedRestaurants,
+} from "./restaurantsSlice";
 
 export type SearchState = {
   searchQuery: string;
@@ -15,12 +22,37 @@ export type SearchState = {
 };
 
 const SearchPage = () => {
+  const { city } = useParams();
+  const dispatch = useAppDispatch();
+  const restaurants = useAppSelector(selectSearchedRestaurants);
+  const restaurantsCount = useAppSelector(searchRestaurantsCount);
+
+console.log(restaurants);
+
+  const createSearchRequest = () => {
+    const params = new URLSearchParams();
+    params.set("searchQuery", searchState.searchQuery);
+    params.set("page", searchState.page.toString());
+    params.set("selectedCuisines", searchState.selectedCuisines.join(","));
+    params.set("sortOption", searchState.sortOption);
+    dispatch(searchRestaurant({ city, params }));
+  };
+
   const [searchState, setSearchState] = useState<SearchState>({
     searchQuery: "",
     page: 1,
     selectedCuisines: [],
     sortOption: "bestMatch",
   });
+
+  useEffect(() => {
+    createSearchRequest();
+  }, [
+    searchState.searchQuery,
+    searchState.page,
+    searchState.sortOption,
+    JSON.stringify(searchState.selectedCuisines),
+  ]);
 
   const setSelectedCuisines = (selectedCuisines: string[]) => {
     setSearchState((prevState) => ({
@@ -87,7 +119,7 @@ const SearchPage = () => {
             columnGap={3}
           >
             <Box>
-              <SearchResultInfo />
+              <SearchResultInfo total={restaurantsCount} city={city ?? ""} />
             </Box>
             <Box
               sx={{
@@ -110,12 +142,6 @@ const SearchPage = () => {
         </Box>
       </Grid>
     </Grid>
-    // <Box className="searchPage" sx={{ display: "grid" }}>
-    //   <Box className="searchPage-cusine">
-
-    //   </Box>
-    //   <Box className="searchPage-searchBar">werter</Box>
-    // </Box>
   );
 };
 

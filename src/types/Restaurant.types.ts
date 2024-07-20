@@ -7,6 +7,7 @@ export type DetailsType = {
 };
 
 export type RestaurantType = {
+  _id?: string;
   details: DetailsType | null;
   cuisines: string[] | null;
   menuItems:
@@ -19,3 +20,5 @@ export type RestaurantType = {
   imageUrl: string | null;
   isEditing: boolean;
 };
+
+export type DbRestaurantType = DetailsType & RestaurantType;

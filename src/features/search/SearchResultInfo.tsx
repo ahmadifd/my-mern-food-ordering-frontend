@@ -1,10 +1,21 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const SearchResultInfo = () => {
+type Props = {
+  total: number;
+  city: string;
+};
+
+const SearchResultInfo = ({ total, city }: Props) => {
   return (
     <Box>
-      <Link style={{fontSize:"0.8rem" , fontWeight:"bold" }} to="/">Change Location</Link>
+      <Typography fontWeight="bold">
+        {total} Restaurants found in {city} &nbsp;
+         <Link style={{ fontSize: "0.8rem", fontWeight: "bold" }} to="/">
+        Change Location
+      </Link>
+      </Typography>
+     
     </Box>
   );
 };

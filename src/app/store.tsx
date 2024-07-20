@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
 import authReducer from "../features/auth/authSlice";
 import myRestaurantReducer from "../features/restaurant/myRestaurantSlice";
+import restaurantReducer from "../features/search/restaurantsSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authReducer,
     myRestaurant: myRestaurantReducer,
+    restaurants: restaurantReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

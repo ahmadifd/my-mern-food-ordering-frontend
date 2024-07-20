@@ -29,7 +29,7 @@ const initialState: myRestaurantState = {
 const RESTAURANT_URL = `/my/restaurant/`;
 
 export const getMyRestaurant = createAsyncThunk(
-  "restaurant/getRestaurant",
+  "restaurant/getMyRestaurant",
   async (_arg, api) => {
     const token = (api.getState() as RootState).auth.token;
     const axios = new GetAxiosAutoRefresh(token, "application/json");
@@ -41,7 +41,7 @@ export const getMyRestaurant = createAsyncThunk(
 );
 
 export const createMyRestaurant = createAsyncThunk(
-  "restaurant/createRestaurant",
+  "restaurant/createMyRestaurant",
   async (formData: FormData, api) => {
     const token = (api.getState() as RootState).auth.token;
 
@@ -55,7 +55,7 @@ export const createMyRestaurant = createAsyncThunk(
 );
 
 export const editMyRestaurant = createAsyncThunk(
-  "restaurant/editRestaurant",
+  "restaurant/editMyRestaurant",
   async (formData: FormData, api) => {
     const token = (api.getState() as RootState).auth.token;
 

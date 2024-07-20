@@ -11,8 +11,16 @@ import ManageRestaurantPage from "./features/restaurant/ManageRestaurantPage";
 import RestaurantOrdersPage from "./features/order/RestaurantOrdersPage";
 import RestaurantProvider from "./context/RestaurantProvider";
 import SearchPage from "./features/search/SearchPage";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
   return (
     <>
       <Routes>
@@ -33,7 +41,14 @@ function App() {
                 />
               }
             >
-              <Route path="/user-profile" element={<UserProfilePage />} />
+              <Route
+                path="/user-profile"
+                element={
+                  <QueryClientProvider client={queryClient}>
+                    <UserProfilePage />
+                  </QueryClientProvider>
+                }
+              />
 
               <Route
                 path="/manage-restaurant"
