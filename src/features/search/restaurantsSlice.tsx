@@ -7,7 +7,6 @@ import {
 import { RootState } from "../../app/store";
 import { GetAxiosAutoRefresh } from "../../app/api/axios";
 import { DbRestaurantType, RestaurantType } from "../../types/Restaurant.types";
-import { SearchState } from "./SearchPage";
 
 enum FetchingStatus {
   "idle",
