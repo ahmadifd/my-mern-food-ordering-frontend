@@ -91,7 +91,7 @@ const myRestauranSlice = createSlice({
         menuItems: data.menuItems,
         imageFile: null,
         imageUrl: data.imageUrl,
-        isEditing: true,
+        isEditing: false,
       };
 
       state.restaurantInfo = restaurant;
@@ -114,7 +114,7 @@ const myRestauranSlice = createSlice({
         menuItems: data.menuItems,
         imageFile: null,
         imageUrl: data.imageUrl,
-        isEditing: true,
+        isEditing: false,
       };
 
       state.restaurantInfo = restaurant;
@@ -134,7 +134,7 @@ const myRestauranSlice = createSlice({
         menuItems: data.menuItems,
         imageFile: null,
         imageUrl: data.imageUrl,
-        isEditing: true,
+        isEditing: false,
       };
       state.restaurantInfo = restaurant;
     });

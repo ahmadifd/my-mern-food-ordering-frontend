@@ -12,6 +12,7 @@ import RestaurantOrdersPage from "./features/order/RestaurantOrdersPage";
 import RestaurantProvider from "./context/RestaurantProvider";
 import SearchPage from "./features/search/SearchPage";
 import { QueryClient, QueryClientProvider } from "react-query";
+import DetailPage from "./features/search/DetailPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -41,6 +42,7 @@ function App() {
                 />
               }
             >
+              <Route path="/detail/:restaurantId" element={<DetailPage />} />
               <Route
                 path="/user-profile"
                 element={

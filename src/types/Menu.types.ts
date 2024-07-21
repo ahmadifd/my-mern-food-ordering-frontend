@@ -1,6 +1,5 @@
-
-
 export type MenuType = {
-    name: string;
-    price: string;
-  };
+  _id: string;
+  name: string;
+  price: string;
+};

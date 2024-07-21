@@ -9,7 +9,7 @@ type Props = {
 const SearchResultInfo = ({ total, city }: Props) => {
   return (
     <Box>
-      <Typography fontWeight="bold">
+      <Typography fontWeight="bold" sx={{textWrap:"wrap"}}>
         {total} Restaurants found in {city} &nbsp;
          <Link style={{ fontSize: "0.8rem", fontWeight: "bold" }} to="/">
         Change Location

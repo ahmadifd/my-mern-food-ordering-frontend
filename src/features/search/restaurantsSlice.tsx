@@ -34,12 +34,26 @@ const restaurantsAdapter = createEntityAdapter({
 });
 
 export const searchRestaurant = createAsyncThunk(
-  "restaurant/getRestaurants",
+  "restaurant/searchRestaurant",
   async ({ params, city }: { params: URLSearchParams; city?: string }, api) => {
     const token = (api.getState() as RootState).auth.token;
     const axios = new GetAxiosAutoRefresh(token, "application/json");
     const response = await axios.get(
       RESTAURANT_URL + `search/${city}?${params.toString()}`
+    );
+    if (!response.data) throw new Error("No Content");
+
+    return response.data;
+  }
+);
+
+export const getRestaurant = createAsyncThunk(
+  "restaurant/getRestaurant",
+  async (restaurantId: string, api) => {
+    const token = (api.getState() as RootState).auth.token;
+    const axios = new GetAxiosAutoRefresh(token, "application/json");
+    const response = await axios.get(
+      RESTAURANT_URL + `getRestaurant/${restaurantId}`
     );
     if (!response.data) throw new Error("No Content");
 
@@ -86,6 +100,29 @@ const restauranSlice = createSlice({
       restaurantsAdapter.removeAll(state);
       state.count = 0;
       state.status = FetchingStatus.failed;
+    });
+    builder.addCase(getRestaurant.fulfilled, (state, action) => {
+      state.status = FetchingStatus.succeeded;
+      const data = action.payload;
+      const restaurant = {
+        details: {
+          restaurantName: data.restaurantName,
+          city: data.city,
+          country: data.country,
+          deliveryPrice: data.deliveryPrice,
+          estimatedDeliveryTime: data.estimatedDeliveryTime,
+        },
+        _id: data._id,
+        cuisines: data.cuisines,
+        menuItems: data.menuItems,
+        imageFile: null,
+        imageUrl: data.imageUrl,
+        isEditing: true,
+      };
+
+      console.log(restaurant);
+
+      restaurantsAdapter.upsertOne(state, restaurant);
     });
   },
 });

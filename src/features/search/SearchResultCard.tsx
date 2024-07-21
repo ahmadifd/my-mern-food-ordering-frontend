@@ -42,9 +42,9 @@ const SearchResultCard = ({ restaurant }: Props) => {
               </Box>
               <Box mt={1} sx={{ display: "flex", flexWrap: "wrap" }}>
                 {restaurant?.cuisines?.map((item, index) => (
-                  <>
+                  <Box key={index}>
                     {item} {index + 1 < restaurant?.cuisines?.length! && ","}
-                  </>
+                  </Box>
                 ))}
               </Box>
             </Box>

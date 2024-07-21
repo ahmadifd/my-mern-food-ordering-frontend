@@ -4,10 +4,9 @@ import { MenuType } from "../types/Menu.types";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import {
   getMyRestaurant,
-  createMyRestaurant,
   myRestaurant,
 } from "../features/restaurant/myRestaurantSlice";
-import useAuth from "../hooks/useAuth";
+
 
 type RestaurantContextType = {
   restaurant: RestaurantType | null;

@@ -12,6 +12,7 @@ export type RestaurantType = {
   cuisines: string[] | null;
   menuItems:
     | {
+        _id: string;
         name: string;
         price: string;
       }[]
