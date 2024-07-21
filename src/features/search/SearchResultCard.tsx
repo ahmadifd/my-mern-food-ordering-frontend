@@ -23,7 +23,7 @@ const SearchResultCard = ({ restaurant }: Props) => {
             style={{
               borderRadius: "10px",
               width: "100%",
-              height: medium ? "15vh" : xsmall ? "50vh" : "",
+              height: medium ? "20vh" : xsmall ? "50vh" : "",
             }}
             src={restaurant?.imageUrl!}
           />
@@ -36,9 +36,17 @@ const SearchResultCard = ({ restaurant }: Props) => {
               justifyContent: "space-around",
             }}
           >
-            <Box>
-              <Box>{restaurant?.details?.restaurantName}</Box>
-              <Box>{restaurant?.cuisines?.map((item, index) => item)}</Box>
+            <Box sx={{ width: "50%" }}>
+              <Box sx={{ fontWeight: "bold", fontSize: "1.2rem" }}>
+                {restaurant?.details?.restaurantName}
+              </Box>
+              <Box mt={1} sx={{ display: "flex", flexWrap: "wrap" }}>
+                {restaurant?.cuisines?.map((item, index) => (
+                  <>
+                    {item} {index + 1 < restaurant?.cuisines?.length! && ","}
+                  </>
+                ))}
+              </Box>
             </Box>
 
             <Box>
@@ -48,7 +56,9 @@ const SearchResultCard = ({ restaurant }: Props) => {
                 </Box>
                 <Box>{restaurant?.details?.estimatedDeliveryTime} mins</Box>
               </Box>
-              <Box>Delivery from £{restaurant?.details?.deliveryPrice!}</Box>
+              <Box mt={1}>
+                Delivery from £{restaurant?.details?.deliveryPrice!}
+              </Box>
             </Box>
           </Box>
         </Grid>
