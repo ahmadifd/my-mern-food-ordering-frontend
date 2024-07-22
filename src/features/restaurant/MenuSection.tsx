@@ -76,7 +76,7 @@ const MenuSection = ({ menuItems, updateMenu }: PropsType) => {
       <Box mt={1}>
         <Button
           onClick={() => {
-            appendMenu({ name: "", price: "" });
+            appendMenu({ _id: "", name: "", price: "" });
           }}
           variant="contained"
           size="small"

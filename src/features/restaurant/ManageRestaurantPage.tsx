@@ -49,6 +49,7 @@ const ManageRestaurantPage = () => {
       formData.append(`cuisines[${index}]`, cuisine);
     });
     restaurant!.menuItems!.forEach((menuItem, index) => {
+      formData.append(`menuItems[${index}][_id]`, menuItem._id);
       formData.append(`menuItems[${index}][name]`, menuItem.name);
       formData.append(
         `menuItems[${index}][price]`,

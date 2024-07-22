@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { getRestaurant, selectRestaurantById } from "./restaurantsSlice";
-import { SetStateAction, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import RestaurantInfo from "./RestaurantInfo";
 import MenuItem from "./MenuItem";
