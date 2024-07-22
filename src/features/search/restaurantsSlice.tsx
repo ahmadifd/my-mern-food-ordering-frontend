@@ -91,7 +91,6 @@ const restauranSlice = createSlice({
       );
       state.count = action.payload.data.length;
 
-      console.log(loadedRestaurants);
 
       restaurantsAdapter.removeAll(state);
       restaurantsAdapter.upsertMany(state, loadedRestaurants);
@@ -120,7 +119,6 @@ const restauranSlice = createSlice({
         isEditing: true,
       };
 
-      console.log(restaurant);
 
       restaurantsAdapter.upsertOne(state, restaurant);
     });

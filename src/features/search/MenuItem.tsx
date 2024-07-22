@@ -9,7 +9,7 @@ type Props = {
 const MenuItem = ({ menuItem, addToCart }: Props) => {
   return (
     <Box mt={1}>
-      <Card>
+      <Card onClick={addToCart} sx={{ cursor: "pointer" }}>
         <CardHeader title={menuItem.name} />
         <CardContent>£{menuItem.price.toString()}</CardContent>
       </Card>

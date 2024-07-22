@@ -57,7 +57,7 @@ const SearchResultCard = ({ restaurant }: Props) => {
                 <Box>{restaurant?.details?.estimatedDeliveryTime} mins</Box>
               </Box>
               <Box mt={1}>
-                Delivery from £{restaurant?.details?.deliveryPrice!}
+                Delivery from {restaurant?.details?.deliveryPrice!}
               </Box>
             </Box>
           </Box>

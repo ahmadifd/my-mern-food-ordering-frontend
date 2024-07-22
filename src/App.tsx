@@ -42,7 +42,14 @@ function App() {
                 />
               }
             >
-              <Route path="/detail/:restaurantId" element={<DetailPage />} />
+              <Route
+                path="/detail/:restaurantId"
+                element={
+                  <QueryClientProvider client={queryClient}>
+                    <DetailPage />
+                  </QueryClientProvider>
+                }
+              />
               <Route
                 path="/user-profile"
                 element={
