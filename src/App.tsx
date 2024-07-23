@@ -13,6 +13,7 @@ import RestaurantProvider from "./context/RestaurantProvider";
 import SearchPage from "./features/search/SearchPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import DetailPage from "./features/search/DetailPage";
+import PayPage from "./features/order/PayPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -75,6 +76,7 @@ function App() {
             </Route>
           </Route>
         </Route>
+        <Route path="/pay-page/:orderId" element={<PayPage />}></Route>
       </Routes>
     </>
   );

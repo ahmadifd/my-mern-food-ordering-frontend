@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { getRestaurant, selectRestaurantById } from "./restaurantsSlice";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import RestaurantInfo from "./RestaurantInfo";
 import MenuItem from "./MenuItem";
@@ -10,10 +10,12 @@ import { CartItem } from "../../types/CartItem.types";
 import OrderSummary from "../order/OrderSummary";
 import CheckoutButton from "./CheckoutButton";
 import { UserFormData } from "../../types/UserFormData.types";
+import { useCreateCheckoutSessionMutation } from "../order/orderApiSlice";
 
 const DetailPage = () => {
   const { restaurantId } = useParams();
-
+  const [createCheckoutSession, { isLoading }] =
+    useCreateCheckoutSessionMutation();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     const storedCartItems = sessionStorage.getItem(`cartItems-${restaurantId}`);
     return storedCartItems ? JSON.parse(storedCartItems) : [];
@@ -94,10 +96,10 @@ const DetailPage = () => {
       },
     };
 
-    console.log(checkoutData);
+    //console.log(checkoutData);
 
-    //const data = await createCheckoutSession(checkoutData);
-    //window.location.href = data.url;
+    const data = await createCheckoutSession(checkoutData);
+    window.location.href = data.data.url;
   };
 
   return (

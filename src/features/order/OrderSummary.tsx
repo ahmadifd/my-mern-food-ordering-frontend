@@ -22,7 +22,6 @@ const OrderSummary = ({ restaurant, cartItems, removeFromCart }: Props) => {
     return totalWithDelivery;
   };
 
-  console.log(restaurant?.details?.deliveryPrice!);
 
   return (
     <Box sx={{ display: "grid" }} rowGap={1}>
