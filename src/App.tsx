@@ -32,7 +32,14 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route index element={<Home />} />
             <Route path="search/:city" element={<SearchPage />} />
-            <Route path="/register" element={<Register />} />
+            <Route
+              path="/register"
+              element={
+                <QueryClientProvider client={queryClient}>
+                  <Register />
+                </QueryClientProvider>
+              }
+            />
             <Route
               element={
                 <RequireAuth

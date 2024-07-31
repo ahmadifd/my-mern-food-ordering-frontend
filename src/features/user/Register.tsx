@@ -47,7 +47,11 @@ const Register = () => {
 
   return (
     <Box sx={{ display: "grid", justifyContent: "center" }}>
-      <Box component="form" sx={{}} onSubmit={handleSubmit}>
+      <Box sx={{
+          backgroundColor: "grey.100",
+          padding: "1em",
+          borderRadius: "0.5em",
+        }} component="form" onSubmit={handleSubmit}>
         <Box sx={{ textAlign: "center", fontWeight: "bold" }}>Register</Box>
         <Box mt={1}>
           <TextField
@@ -124,6 +128,7 @@ const Register = () => {
               multiple: true,
             }}
             fullWidth
+            inputProps={{ sx: { backgroundColor: "white" } }}
             size="small"
             helperText="Please select your Type"
             value={roles}
