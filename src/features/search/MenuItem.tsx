@@ -11,7 +11,7 @@ const MenuItem = ({ menuItem, addToCart }: Props) => {
     <Box mt={1}>
       <Card onClick={addToCart} sx={{ cursor: "pointer" }}>
         <CardHeader title={menuItem.name} />
-        <CardContent>£{menuItem.price.toString()}</CardContent>
+        <CardContent>{menuItem.price.toString()}</CardContent>
       </Card>
     </Box>
   );

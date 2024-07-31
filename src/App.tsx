@@ -33,6 +33,15 @@ function App() {
             <Route index element={<Home />} />
             <Route path="search/:city" element={<SearchPage />} />
             <Route
+              path="/detail/:restaurantId"
+              element={
+                <QueryClientProvider client={queryClient}>
+                  <DetailPage />
+                </QueryClientProvider>
+              }
+            />
+
+            <Route
               path="/register"
               element={
                 <QueryClientProvider client={queryClient}>
@@ -52,14 +61,7 @@ function App() {
               }
             >
               <Route path="/order-status" element={<OrderStatusPage />} />
-              <Route
-                path="/detail/:restaurantId"
-                element={
-                  <QueryClientProvider client={queryClient}>
-                    <DetailPage />
-                  </QueryClientProvider>
-                }
-              />
+
               <Route
                 path="/user-profile"
                 element={

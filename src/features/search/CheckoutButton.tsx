@@ -18,7 +18,7 @@ const style = {
   left: "20%",
   right: "20%",
   //  transform: "translate(-50%, -50%)",
-  bgcolor:"white",
+  bgcolor: "white",
   boxShadow: 24,
   pt: 2,
   px: 3,
@@ -40,12 +40,12 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
       <Box sx={{ display: "grid", justifyContent: "center" }}>
         <Box>
           <Button
-            disabled={disabled}
+            disabled={currentuserId ? disabled : true}
             onClick={() => {
               setShowModal(true);
             }}
           >
-            Go to checkout
+            {currentuserId ? "Go to checkout" : "Go to Login"}
           </Button>
         </Box>
       </Box>
