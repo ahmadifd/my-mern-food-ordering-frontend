@@ -37,7 +37,16 @@ const Login = () => {
 
   return (
     <Box sx={{ display: "grid", justifyContent: "center" }}>
-      <Box component="form" sx={{ marginTop: "20%" }} onSubmit={handleSubmit}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          backgroundColor: "grey.100",
+          padding: "1em",
+          borderRadius: "0.5em",
+          marginTop: "20%",
+        }}
+      >
         <Box
           sx={{ textAlign: "center", fontWeight: "bold", marginBottom: "1em" }}
         >
@@ -53,6 +62,7 @@ const Login = () => {
             label="Email"
             size="small"
             required
+        
             //error={!email}
           />
         </Box>

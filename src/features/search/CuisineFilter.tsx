@@ -60,7 +60,7 @@ const CuisineFilter = ({
           {cuisineList
             .slice(0, isExpanded ? cuisineList.length : 7)
             .map((cuisineItem, index) => (
-              <ListItem 
+              <ListItem
                 key={index}
                 disablePadding
                 sx={{
@@ -99,8 +99,8 @@ const CuisineFilter = ({
                           ? "success.main"
                           : "",
                       fontWeight: "bold",
-             
-                      fontSize:"0.8rem"
+
+                      fontSize: "0.8rem",
                     }}
                   />
                 </ListItemButton>

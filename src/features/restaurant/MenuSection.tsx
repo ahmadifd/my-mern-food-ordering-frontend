@@ -1,11 +1,11 @@
 import { Box, Button, TextField } from "@mui/material";
 import { memo } from "react";
 import useMenuArray from "../../hooks/useMenuArray";
-import { MenuType } from "../../types/Menu.types";
+import { MenuItem } from "../../types/MenuItem.types";
 
 type PropsType = {
-  menuItems: MenuType[];
-  updateMenu: (menu: MenuType[]) => void;
+  menuItems: MenuItem[];
+  updateMenu: (menu: MenuItem[]) => void;
 };
 
 const MenuSection = ({ menuItems, updateMenu }: PropsType) => {

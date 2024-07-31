@@ -14,6 +14,7 @@ import SearchPage from "./features/search/SearchPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import DetailPage from "./features/search/DetailPage";
 import PayPage from "./features/order/PayPage";
+import OrderStatusPage from "./features/order/OrderStatusPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -43,6 +44,7 @@ function App() {
                 />
               }
             >
+              <Route path="/order-status" element={<OrderStatusPage />} />
               <Route
                 path="/detail/:restaurantId"
                 element={

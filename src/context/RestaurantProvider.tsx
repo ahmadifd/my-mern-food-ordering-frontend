@@ -1,20 +1,19 @@
 import { ReactElement, createContext, useEffect, useState } from "react";
 import { DetailsType, RestaurantType } from "../types/Restaurant.types";
-import { MenuType } from "../types/Menu.types";
+import { MenuItem } from "../types/MenuItem.types";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import {
   getMyRestaurant,
   myRestaurant,
 } from "../features/restaurant/myRestaurantSlice";
 
-
 type RestaurantContextType = {
   restaurant: RestaurantType | null;
   setRestaurant: React.Dispatch<React.SetStateAction<RestaurantType>>;
   details: DetailsType;
   setDetails: React.Dispatch<React.SetStateAction<DetailsType>>;
-  menuItems: MenuType[];
-  setMenuItems: React.Dispatch<React.SetStateAction<MenuType[]>>;
+  menuItems: MenuItem[];
+  setMenuItems: React.Dispatch<React.SetStateAction<MenuItem[]>>;
   cuisines: string[];
   setCuisines: React.Dispatch<React.SetStateAction<string[]>>;
 };
@@ -47,7 +46,7 @@ const RestaurantProvider = ({ children }: ChildrenType) => {
   });
 
   const [details, setDetails] = useState<DetailsType>(restaurant?.details!);
-  const [menuItems, setMenuItems] = useState<MenuType[]>(
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(
     restaurant?.menuItems!
   );
   const [cuisines, setCuisines] = useState<string[]>(restaurant?.cuisines!);

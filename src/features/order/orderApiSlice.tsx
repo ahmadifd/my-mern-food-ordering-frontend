@@ -14,11 +14,26 @@ export const orderApiSlice = apiSlice.injectEndpoints({
     }),
     stripeWebhookHandler: builder.mutation({
       query: (arg) => {
-        console.log(arg);
         return {
           url: "/order/checkout/webhook",
           method: "POST",
           body: { ...arg },
+        };
+      },
+    }),
+    getMyOrders: builder.query({
+      query: () => `/order/getMyOrders`,
+    }),
+    getRestaurantOrders: builder.query({
+      query: () => `/my/restaurant/order`,
+    }),
+    updateOrderStatus: builder.mutation({
+      query: (arg) => {
+        console.log(arg);
+        return {
+          url: `/my/restaurant/order/${arg.orderId}/status`,
+          method: "PUT",
+          body: JSON.stringify({ status: arg.status }),
         };
       },
     }),
@@ -28,4 +43,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
 export const {
   useCreateCheckoutSessionMutation,
   useStripeWebhookHandlerMutation,
+  useGetMyOrdersQuery,
+  useGetRestaurantOrdersQuery,
+  useUpdateOrderStatusMutation,
 } = orderApiSlice;

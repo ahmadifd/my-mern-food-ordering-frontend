@@ -7,9 +7,10 @@ import { useNavigate } from "react-router-dom";
 type Props = {
   email: string;
   isOwner: boolean;
+  isUser: boolean;
 };
 
-const MainNavLinks = ({ email, isOwner }: Props) => {
+const MainNavLinks = ({ email, isOwner, isUser }: Props) => {
   const [localStoragePersisit, setLocalStoragePersisit] =
     useLocalStorage<boolean>("persist", false);
   const [logOut] = useLogOutMutation();
@@ -55,6 +56,16 @@ const MainNavLinks = ({ email, isOwner }: Props) => {
           horizontal: "right",
         }}
       >
+        {isUser && (
+          <MenuItem
+            onClick={() => {
+              navigate("/order-status");
+              setAnchorEl(null);
+            }}
+          >
+            Order Status
+          </MenuItem>
+        )}
         {isOwner && (
           <MenuItem
             onClick={() => {

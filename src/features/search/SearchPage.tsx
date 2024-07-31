@@ -97,7 +97,16 @@ const SearchPage = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
-    <Grid container spacing={1}>
+    <Grid
+      sx={{
+        backgroundColor: "grey.100",
+        padding: "1em",
+        borderRadius: "0.5em",
+        minHeight:"100%"
+      }}
+      container
+      spacing={1}
+    >
       <Grid item xs={12} md={3}>
         <CuisineFilter
           selectedCuisines={searchState.selectedCuisines}

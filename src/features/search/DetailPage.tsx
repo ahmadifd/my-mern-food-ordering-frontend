@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import RestaurantInfo from "./RestaurantInfo";
 import MenuItem from "./MenuItem";
-import { MenuType } from "../../types/Menu.types";
+import { MenuItem as  MenuItemType} from "../../types/MenuItem.types";
 import { CartItem } from "../../types/CartItem.types";
 import OrderSummary from "../order/OrderSummary";
 import CheckoutButton from "./CheckoutButton";
@@ -26,7 +26,7 @@ const DetailPage = () => {
     selectRestaurantById(state, restaurantId!)
   );
 
-  const addToCart = (menuItem: MenuType) => {
+  const addToCart = (menuItem: MenuItemType) => {
     setCartItems((prevCartItems) => {
       const existingCartItem = prevCartItems.find(
         (cartItem: CartItem) => cartItem._id === menuItem._id
@@ -104,7 +104,14 @@ const DetailPage = () => {
 
   return (
     <Box
-      sx={{ display: "grid", justifyContent: "center", gridAutoColumns: "95%" }}
+      sx={{
+        backgroundColor: "grey.100",
+        padding: "1em",
+        borderRadius: "0.5em",
+        display: "grid",
+        justifyContent: "center",
+        gridAutoColumns: "95%",
+      }}
     >
       <Box>
         <img

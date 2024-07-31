@@ -23,7 +23,7 @@ const SORT_OPTIONS = [
 const SortOptionDropdown = ({ onChange, sortOption }: Props) => {
   return (
     <TextField
-      inputProps={{ sx: { fontSize: "0.9rem" } }}
+      inputProps={{ sx: { fontSize: "0.9rem", backgroundColor: "white" } }}
       InputLabelProps={{ sx: { fontSize: "0.9rem" } }}
       label="Sort by:"
       select

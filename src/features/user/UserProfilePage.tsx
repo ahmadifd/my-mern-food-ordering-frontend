@@ -27,7 +27,7 @@ const UserProfilePage = () => {
   const [password, setPassword] = useState<string>("");
   const [roles, setRoles] = useState<string[]>([]);
   const [alert, setAlert] = useState<AlertState | null>(null);
-  const { editUser, isLoading, isSuccess,isError } =
+  const { editUser, isLoading, isSuccess, isError } =
     useEditUser(currentuserId);
 
   useEffect(() => {
@@ -63,7 +63,15 @@ const UserProfilePage = () => {
 
   return (
     <Box sx={{ display: "grid", justifyContent: "center" }}>
-      <Box component="form" onSubmit={handleSubmit}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          backgroundColor: "grey.100",
+          padding: "1em",
+          borderRadius: "0.5em",
+        }}
+      >
         <Box
           sx={{ textAlign: "center", fontWeight: "bold", marginBottom: "1em" }}
         >
@@ -133,6 +141,7 @@ const UserProfilePage = () => {
         </Box>
         <Box mt={1}>
           <TextField
+            inputProps={{ sx: { backgroundColor: "white" } }}
             label="Select Type"
             select
             SelectProps={{
@@ -180,7 +189,7 @@ const UserProfilePage = () => {
             onClose={() => {
               setAlert(null);
             }}
-          anchorOrigin={{vertical:"top" , horizontal:"center"}}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
           >
             <Alert variant="filled" severity={alert?.type}>
               {alert?.message}

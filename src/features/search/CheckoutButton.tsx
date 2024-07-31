@@ -18,7 +18,7 @@ const style = {
   left: "20%",
   right: "20%",
   //  transform: "translate(-50%, -50%)",
-  bgcolor: colors.grey[50], //"white",
+  bgcolor:"white",
   boxShadow: 24,
   pt: 2,
   px: 3,
@@ -50,7 +50,11 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
         </Box>
       </Box>
       <Modal open={showModal}>
-        <Box sx={{ ...style }}>
+        <Box
+          sx={{
+            ...style,
+          }}
+        >
           <Box>
             <UserProfileForm
               currentUser={user}

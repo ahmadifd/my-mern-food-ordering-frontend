@@ -1,14 +1,14 @@
-import { MenuType } from "../types/Menu.types";
+import { MenuItem } from "../types/MenuItem.types";
 
 const useMenuArray = (
-  menu: MenuType[],
-  updateMenu: (menuItems: MenuType[]) => void
+  menu: MenuItem[],
+  updateMenu: (menuItems: MenuItem[]) => void
 ) => {
-  const appendMenu = (item: MenuType) => {
+  const appendMenu = (item: MenuItem) => {
     const newmenu = [...menu, item];
     updateMenu(newmenu);
   };
-  const changeMenu = (index: number, item: MenuType) => {
+  const changeMenu = (index: number, item: MenuItem) => {
     const newmenu = [
       ...menu?.slice(0, index),
       item,

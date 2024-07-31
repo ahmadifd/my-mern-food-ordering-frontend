@@ -6,7 +6,7 @@ import MenuSection from "./MenuSection";
 import { useContext, useEffect, useState } from "react";
 import { RestaurantContext } from "../../context/RestaurantProvider";
 import { DetailsType, RestaurantType } from "../../types/Restaurant.types";
-import { MenuType } from "../../types/Menu.types";
+import { MenuItem } from "../../types/MenuItem.types";
 import { AlertState, AlertType } from "../../types/Alert.types";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import {
@@ -95,7 +95,7 @@ const ManageRestaurantPage = () => {
     setCuisines(cuisines);
   };
 
-  const updateMenu = (menu: MenuType[]) => {
+  const updateMenu = (menu: MenuItem[]) => {
     setMenuItems(menu);
   };
 
