@@ -20,8 +20,8 @@ const OrderStatusDetail = ({ order }: Props) => {
           </Box>
           <Box mt={1}>
             <Box fontWeight="bold">Your Order:</Box>
-            {order.cartItems.map((item) => (
-              <Box>
+            {order.cartItems.map((item,index) => (
+              <Box key={index}>
                 {item.name} x {item.quantity}
               </Box>
             ))}

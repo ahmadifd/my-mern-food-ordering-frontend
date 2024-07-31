@@ -11,12 +11,14 @@ import { Order, OrderStatus } from "../../types/types";
 import { useUpdateOrderStatusMutation } from "./orderApiSlice";
 import { ORDER_STATUS } from "../../config/order-status-config";
 import { useEffect, useState } from "react";
+import { AlertType } from "../../types/Alert.types";
 
 type Props = {
   order: Order;
+  showAlert: (message: string, type: AlertType) => void;
 };
 
-const OrderItemCard = ({ order }: Props) => {
+const OrderItemCard = ({ order, showAlert }: Props) => {
   const [status, setStatus] = useState<OrderStatus>(order.status);
 
   const [updateOrderStatus, { isLoading }] = useUpdateOrderStatusMutation();
@@ -31,6 +33,7 @@ const OrderItemCard = ({ order }: Props) => {
       status: newStatus,
     });
     setStatus(newStatus);
+    showAlert("Order Updated", AlertType.success);
   };
 
   const getTime = () => {

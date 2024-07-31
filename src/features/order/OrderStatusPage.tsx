@@ -5,7 +5,7 @@ import OrderStatusDetail from "./OrderStatusDetail";
 import { Order } from "../../types/types";
 
 const OrderStatusPage = () => {
-  const myOrders = useGetMyOrdersQuery(null);
+  const myOrders = useGetMyOrdersQuery({}, { pollingInterval: 5000 });
 
   console.log(myOrders);
 

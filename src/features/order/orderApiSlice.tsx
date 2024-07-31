@@ -33,7 +33,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         return {
           url: `/my/restaurant/order/${arg.orderId}/status`,
           method: "PUT",
-          body: JSON.stringify({ status: arg.status }),
+          body: { status: arg.status },
         };
       },
     }),
