@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { getRestaurant, selectRestaurantById } from "./restaurantsSlice";
 import { useEffect, useState } from "react";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import RestaurantInfo from "./RestaurantInfo";
 import MenuItem from "./MenuItem";
-import { MenuItem as  MenuItemType} from "../../types/MenuItem.types";
+import { MenuItem as MenuItemType } from "../../types/MenuItem.types";
 import { CartItem } from "../../types/CartItem.types";
 import OrderSummary from "../order/OrderSummary";
 import CheckoutButton from "./CheckoutButton";
@@ -123,59 +123,60 @@ const DetailPage = () => {
           src={restaurant?.imageUrl!}
         />
       </Box>
-      <Box
-        mt={1}
-        sx={{ display: "flex", justifyContent: "space-around" }}
-        columnGap={2}
-      >
-        <Box sx={{ width: "60%" }}>
-          <Box sx={{ width: "100%" }}>
-            <RestaurantInfo restaurant={restaurant} />
-          </Box>
-          <Box>
-            <Box
-              mt={1}
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                flexWrap: "wrap",
-              }}
-            >
-              <Typography fontWeight="bold" fontSize="1.3rem">
-                Menu
-              </Typography>
-              <hr />
-              {restaurant?.menuItems?.map((menuItem, index) => (
-                <Box key={index}>
-                  <MenuItem
-                    menuItem={menuItem}
-                    addToCart={() => addToCart(menuItem)}
-                  />
+      <Box mt={2}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={8}>
+            <Box>
+              <Box sx={{ width: "100%" }}>
+                <RestaurantInfo restaurant={restaurant} />
+              </Box>
+              <Box>
+                <Box
+                  mt={1}
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <Typography fontWeight="bold" fontSize="1.3rem">
+                    Menu
+                  </Typography>
+                  <hr />
+                  {restaurant?.menuItems?.map((menuItem, index) => (
+                    <Box key={index}>
+                      <MenuItem
+                        menuItem={menuItem}
+                        addToCart={() => addToCart(menuItem)}
+                      />
+                    </Box>
+                  ))}
                 </Box>
-              ))}
+              </Box>
             </Box>
-          </Box>
-        </Box>
-
-        <Box sx={{ width: "40%" }}>
-          <Card>
-            <CardContent>
-              <OrderSummary
-                restaurant={restaurant}
-                cartItems={cartItems}
-                removeFromCart={removeFromCart}
-              />
-            </CardContent>
-            <CardContent>
-              <CheckoutButton
-                isLoading={false}
-                onCheckout={onCheckout}
-                disabled={cartItems.length === 0}
-              />
-            </CardContent>
-          </Card>
-        </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box>
+              <Card>
+                <CardContent>
+                  <OrderSummary
+                    restaurant={restaurant}
+                    cartItems={cartItems}
+                    removeFromCart={removeFromCart}
+                  />
+                </CardContent>
+                <CardContent>
+                  <CheckoutButton
+                    isLoading={false}
+                    onCheckout={onCheckout}
+                    disabled={cartItems.length === 0}
+                  />
+                </CardContent>
+              </Card>
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );
