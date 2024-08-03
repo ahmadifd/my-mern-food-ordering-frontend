@@ -1,4 +1,4 @@
-import { Badge, Box, IconButton, TextField, Typography } from "@mui/material";
+import { Badge, Box, IconButton, Typography } from "@mui/material";
 import { CartItem } from "../../types/CartItem.types";
 import { RestaurantType } from "../../types/Restaurant.types";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";

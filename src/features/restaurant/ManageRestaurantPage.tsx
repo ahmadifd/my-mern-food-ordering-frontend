@@ -8,7 +8,7 @@ import { RestaurantContext } from "../../context/RestaurantProvider";
 import { DetailsType, RestaurantType } from "../../types/Restaurant.types";
 import { MenuItem } from "../../types/MenuItem.types";
 import { AlertState, AlertType } from "../../types/Alert.types";
-import { useAppDispatch, useAppSelector } from "../../app/store";
+import { useAppDispatch } from "../../app/store";
 import {
   createMyRestaurant,
   editMyRestaurant,

@@ -6,14 +6,14 @@ type Props = {
   onPageChange: (page: number) => void;
 };
 
-const PaginationSelector = ({ page, pages, onPageChange }: Props) => {
+const PaginationSelector = ({ pages, onPageChange }: Props) => {
   return (
     <>
       {pages > 0 && (
         <Box>
           <Pagination
             count={pages}
-            onChange={(event: React.ChangeEvent<unknown>, value: number) => {
+            onChange={(_event: React.ChangeEvent<unknown>, value: number) => {
               onPageChange(value);
             }}
           />

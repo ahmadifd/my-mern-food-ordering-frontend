@@ -1,12 +1,12 @@
 import { Alert, Box, Button, MenuItem, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ROLES_LIST } from "../../types/ROLES_LIST";
 import useCreateUser from "../../hooks/useCreateUser";
 import { AlertState, AlertType } from "../../types/Alert.types";
 
 const Register = () => {
-  const { createUser, isLoading, isSuccess, isError } = useCreateUser();
+  const { createUser } = useCreateUser();
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");

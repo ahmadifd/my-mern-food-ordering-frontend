@@ -16,9 +16,9 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const [persist, setPersist] = useState<boolean>(false);
-  const [localStoragePersisit, setLocalStoragePersisit] =
+  const [_localStoragePersisit, setLocalStoragePersisit] =
     useLocalStorage<boolean>("persist", false);
 
   useEffect(() => {}, []);

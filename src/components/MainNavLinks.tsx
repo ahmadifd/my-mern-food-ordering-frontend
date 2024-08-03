@@ -1,5 +1,5 @@
 import { Box, Button, Menu, MenuItem } from "@mui/material";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useLogOutMutation } from "../features/auth/authApiSlice";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const MainNavLinks = ({ email, isOwner, isUser }: Props) => {
-  const [localStoragePersisit, setLocalStoragePersisit] =
+  const [_localStoragePersisit, setLocalStoragePersisit] =
     useLocalStorage<boolean>("persist", false);
   const [logOut] = useLogOutMutation();
   const navigate = useNavigate();

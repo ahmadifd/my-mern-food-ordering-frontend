@@ -10,10 +10,10 @@ type Props = {
 const SearchResultCard = ({ restaurant }: Props) => {
   const theme = useTheme();
   const xsmall = useMediaQuery(theme.breakpoints.up("xs"));
-  const small = useMediaQuery(theme.breakpoints.up("sm"));
+  // const small = useMediaQuery(theme.breakpoints.up("sm"));
   const medium = useMediaQuery(theme.breakpoints.up("md"));
-  const large = useMediaQuery(theme.breakpoints.up("lg"));
-  const xlarge = useMediaQuery(theme.breakpoints.up("xl"));
+  // const large = useMediaQuery(theme.breakpoints.up("lg"));
+  // const xlarge = useMediaQuery(theme.breakpoints.up("xl"));
 
   return (
     <Link to={`/detail/${restaurant._id}`}>

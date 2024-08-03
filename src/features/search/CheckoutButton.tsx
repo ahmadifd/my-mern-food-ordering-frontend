@@ -1,4 +1,4 @@
-import { Box, Button, colors, Modal } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import { useState } from "react";
 import UserProfileForm from "../user/UserProfileForm";
 import useAuth from "../../hooks/useAuth";
@@ -26,7 +26,7 @@ const style = {
   borderRadius: 1,
 };
 
-const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
+const CheckoutButton = ({ onCheckout, disabled }: Props) => {
   const { userId: currentuserId } = useAuth();
   const { data, isLoading: isGetUserLoading } = useGetUser(
     currentuserId,

@@ -8,7 +8,7 @@ const PayPage = () => {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const totalPrice = searchParams.get("totalPrice");
-  const [stripeWebhookHandler, { isLoading }] =
+  const [stripeWebhookHandler] =
     useStripeWebhookHandlerMutation();
   return (
     <Box sx={{ height: "100vh", display: "grid", placeContent: "center" }}>

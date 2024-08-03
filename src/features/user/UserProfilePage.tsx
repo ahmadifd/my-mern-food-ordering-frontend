@@ -27,7 +27,7 @@ const UserProfilePage = () => {
   const [password, setPassword] = useState<string>("");
   const [roles, setRoles] = useState<string[]>([]);
   const [alert, setAlert] = useState<AlertState | null>(null);
-  const { editUser, isLoading, isSuccess, isError } =
+  const { editUser } =
     useEditUser(currentuserId);
 
   useEffect(() => {

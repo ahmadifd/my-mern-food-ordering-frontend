@@ -13,7 +13,6 @@ type Props = {
 
 const UserProfileForm = ({
   onSave,
-  isLoading,
   currentUser,
   title = "User Profile",
   buttonText = "Submit",

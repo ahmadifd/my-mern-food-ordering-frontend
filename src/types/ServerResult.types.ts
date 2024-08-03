@@ -1,6 +1,6 @@
-type ServerResultType = {
-  messsage: string;
-  data: {
-    data: object;
-  };
-};
+// type ServerResultType = {
+//   messsage: string;
+//   data: {
+//     data: object;
+//   };
+// };

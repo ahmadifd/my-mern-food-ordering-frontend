@@ -21,7 +21,7 @@ type Props = {
 const OrderItemCard = ({ order, showAlert }: Props) => {
   const [status, setStatus] = useState<OrderStatus>(order.status);
 
-  const [updateOrderStatus, { isLoading }] = useUpdateOrderStatusMutation();
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
 
   useEffect(() => {
     setStatus(order.status);
