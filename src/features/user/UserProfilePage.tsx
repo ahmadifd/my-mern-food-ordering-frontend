@@ -15,7 +15,7 @@ import { User } from "../../types/User.types";
 import { AlertState, AlertType } from "../../types/Alert.types";
 
 const UserProfilePage = () => {
-  const { userId: currentuserId } = useAuth();
+  const { userId: currentuserId, roles: currentUserRoles } = useAuth();
   const { data } = useGetUser(currentuserId, "User1");
   const user = data?.data?.data as User;
 
@@ -163,11 +163,17 @@ const UserProfilePage = () => {
             required
             //error={!roles.length}
           >
-            {Object.values(ROLES_LIST).map((item, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
-              </MenuItem>
-            ))}
+            {Object.values(ROLES_LIST)
+              .filter((x) =>
+                currentUserRoles.includes(ROLES_LIST.Admin)
+                  ? x
+                  : x !== ROLES_LIST.Admin
+              )
+              .map((item, index) => (
+                <MenuItem key={index} value={item}>
+                  {item}
+                </MenuItem>
+              ))}
           </TextField>
         </Box>
         <Box mt={1}>

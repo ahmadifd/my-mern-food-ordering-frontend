@@ -5,7 +5,6 @@ import { ROLES_LIST } from "../../types/ROLES_LIST";
 import useCreateUser from "../../hooks/useCreateUser";
 import { AlertState, AlertType } from "../../types/Alert.types";
 
-
 const Register = () => {
   const { createUser, isLoading, isSuccess, isError } = useCreateUser();
 
@@ -47,15 +46,19 @@ const Register = () => {
 
   return (
     <Box>
-      <Box sx={{
+      <Box
+        sx={{
           backgroundColor: "grey.100",
           padding: "1em",
           borderRadius: "0.5em",
-        }} component="form" onSubmit={handleSubmit}>
+        }}
+        component="form"
+        onSubmit={handleSubmit}
+      >
         <Box sx={{ textAlign: "center", fontWeight: "bold" }}>Register</Box>
         <Box mt={1}>
           <TextField
-          fullWidth
+            fullWidth
             value={name}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setName(event.target.value);
@@ -69,7 +72,7 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
-          fullWidth
+            fullWidth
             type="email"
             value={email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +88,7 @@ const Register = () => {
 
         <Box mt={1}>
           <TextField
-          fullWidth
+            fullWidth
             value={country}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setCountry(event.target.value);
@@ -99,7 +102,7 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
-          fullWidth
+            fullWidth
             value={city}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setCity(event.target.value);
@@ -113,7 +116,7 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
-          fullWidth
+            fullWidth
             value={addressLine1}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setAddressLine1(event.target.value);
@@ -127,7 +130,6 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
-
             label="Select Type"
             select
             SelectProps={{
@@ -146,16 +148,18 @@ const Register = () => {
             required
             //error={!roles.length}
           >
-            {Object.values(ROLES_LIST).map((item, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
-              </MenuItem>
-            ))}
+            {Object.values(ROLES_LIST)
+              .filter((x) => x !== ROLES_LIST.Admin)
+              .map((item, index) => (
+                <MenuItem key={index} value={item}>
+                  {item}
+                </MenuItem>
+              ))}
           </TextField>
         </Box>
         <Box mt={1}>
           <TextField
-          fullWidth
+            fullWidth
             type="password"
             value={password}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
