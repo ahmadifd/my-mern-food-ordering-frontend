@@ -89,8 +89,7 @@ const restauranSlice = createSlice({
           isEditing: true,
         })
       );
-      state.count = action.payload.data.length;
-
+      state.count =action.payload.pagination.total;
 
       restaurantsAdapter.removeAll(state);
       restaurantsAdapter.upsertMany(state, loadedRestaurants);
@@ -118,7 +117,6 @@ const restauranSlice = createSlice({
         imageUrl: data.imageUrl,
         isEditing: true,
       };
-
 
       restaurantsAdapter.upsertOne(state, restaurant);
     });

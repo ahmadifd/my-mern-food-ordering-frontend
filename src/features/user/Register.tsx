@@ -46,7 +46,7 @@ const Register = () => {
   };
 
   return (
-    <Box sx={{ display: "grid", justifyContent: "center" }}>
+    <Box>
       <Box sx={{
           backgroundColor: "grey.100",
           padding: "1em",
@@ -55,6 +55,7 @@ const Register = () => {
         <Box sx={{ textAlign: "center", fontWeight: "bold" }}>Register</Box>
         <Box mt={1}>
           <TextField
+          fullWidth
             value={name}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setName(event.target.value);
@@ -68,6 +69,7 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
+          fullWidth
             type="email"
             value={email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +85,7 @@ const Register = () => {
 
         <Box mt={1}>
           <TextField
+          fullWidth
             value={country}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setCountry(event.target.value);
@@ -96,6 +99,7 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
+          fullWidth
             value={city}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setCity(event.target.value);
@@ -109,6 +113,7 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
+          fullWidth
             value={addressLine1}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setAddressLine1(event.target.value);
@@ -122,6 +127,7 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
+
             label="Select Type"
             select
             SelectProps={{
@@ -149,6 +155,7 @@ const Register = () => {
         </Box>
         <Box mt={1}>
           <TextField
+          fullWidth
             type="password"
             value={password}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

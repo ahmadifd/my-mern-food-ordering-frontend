@@ -19,7 +19,7 @@ const HomeSearchBar = ({ placeHolder, onSubmit }: PropsType) => {
         setSearch(event.target.value);
         setError(false);
       }}
-      sx={{ minWidth: "80vw" }}
+      fullWidth
       label={placeHolder}
       InputProps={{
         endAdornment: (

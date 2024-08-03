@@ -15,7 +15,7 @@ const Home = () => {
     <Box
       sx={{
         display: "grid",
-        justifyContent: "center",
+        
         alignContent: "center",
         minHeight: "100%",
       }}

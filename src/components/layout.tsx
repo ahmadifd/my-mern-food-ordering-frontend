@@ -15,7 +15,15 @@ const Layout = () => {
         <Header />
       </Box>
 
-      <Box sx={{ padding: "1em", minHeight: "80vh" }}>
+      <Box
+        sx={{
+          padding: "1em",
+          minHeight: "80vh",
+          display: "grid",
+          gridAutoColumns: { xs: "100%", md: "minmax(auto , 1200px)" },
+          justifyContent: "center",
+        }}
+      >
         <Outlet />
       </Box>
       <Box sx={{ height: "10vh" }}>

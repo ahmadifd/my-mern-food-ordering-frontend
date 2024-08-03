@@ -62,7 +62,7 @@ const UserProfilePage = () => {
   };
 
   return (
-    <Box sx={{ display: "grid", justifyContent: "center" }}>
+    <Box>
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -83,6 +83,7 @@ const UserProfilePage = () => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setName(event.target.value);
             }}
+            fullWidth
             label="Name"
             size="small"
             required
@@ -91,6 +92,7 @@ const UserProfilePage = () => {
         </Box>
         <Box mt={1}>
           <TextField
+            fullWidth
             type="email"
             value={email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,6 +107,7 @@ const UserProfilePage = () => {
 
         <Box mt={1}>
           <TextField
+            fullWidth
             value={country}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setCountry(event.target.value);
@@ -118,6 +121,7 @@ const UserProfilePage = () => {
         <Box mt={1}>
           <TextField
             value={city}
+            fullWidth
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setCity(event.target.value);
             }}
@@ -129,6 +133,7 @@ const UserProfilePage = () => {
         </Box>
         <Box mt={1}>
           <TextField
+            fullWidth
             value={addressLine1}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setAddressLine1(event.target.value);
@@ -167,6 +172,7 @@ const UserProfilePage = () => {
         </Box>
         <Box mt={1}>
           <TextField
+            fullWidth
             type="password"
             value={password}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
