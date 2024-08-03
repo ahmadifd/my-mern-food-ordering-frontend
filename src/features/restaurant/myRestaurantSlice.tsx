@@ -28,14 +28,16 @@ const initialState: myRestaurantState = {
   restaurantInfo: null,
 };
 
-const RESTAURANT_URL = `/my/restaurant/`;
+const RESTAURANT_URL = `/my/restaurant`;
 
 export const getMyRestaurant = createAsyncThunk(
   "restaurant/getMyRestaurant",
   async (_arg, api) => {
     const token = (api.getState() as RootState).auth.token;
     const axios = new GetAxiosAutoRefresh(token, "application/json");
-    const response = await axios.get(RESTAURANT_URL + `getRestaurant`);
+    const response = await axios.get(
+      API_BASE_URL + RESTAURANT_URL + `/getRestaurant`
+    );
     if (!response.data) throw new Error("No Content");
 
     return response.data;
@@ -49,7 +51,7 @@ export const createMyRestaurant = createAsyncThunk(
 
     const axios = new GetAxiosAutoRefresh(token, "multipart/form-data");
     const response = await axios.post(
-      API_BASE_URL + "my/restaurant/createRestaurant",
+      API_BASE_URL + RESTAURANT_URL + "/createRestaurant",
       { data: formData }
     );
     return response.data;
@@ -63,7 +65,7 @@ export const editMyRestaurant = createAsyncThunk(
 
     const axios = new GetAxiosAutoRefresh(token, "multipart/form-data");
     const response = await axios.put(
-      API_BASE_URL + "my/restaurant/editRestaurant",
+      API_BASE_URL + RESTAURANT_URL + "/editRestaurant",
       { data: formData }
     );
     return response.data;
