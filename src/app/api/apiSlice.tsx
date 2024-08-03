@@ -7,8 +7,10 @@ import {
 import { RootState } from "../store";
 import { setCredentials } from "../../features/auth/authSlice";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3800/",
+  baseUrl: API_BASE_URL,
   credentials: "include",
   prepareHeaders: (headers, api) => {
     const token = (api.getState() as RootState).auth.token;

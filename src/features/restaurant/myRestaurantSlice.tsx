@@ -7,6 +7,8 @@ import { RootState } from "../../app/store";
 import { GetAxiosAutoRefresh } from "../../app/api/axios";
 import { RestaurantType } from "../../types/Restaurant.types";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
 enum FetchingStatus {
   "idle",
   "loading",
@@ -47,7 +49,7 @@ export const createMyRestaurant = createAsyncThunk(
 
     const axios = new GetAxiosAutoRefresh(token, "multipart/form-data");
     const response = await axios.post(
-      "http://localhost:3800/my/restaurant/createRestaurant",
+      API_BASE_URL + "my/restaurant/createRestaurant",
       { data: formData }
     );
     return response.data;
@@ -61,7 +63,7 @@ export const editMyRestaurant = createAsyncThunk(
 
     const axios = new GetAxiosAutoRefresh(token, "multipart/form-data");
     const response = await axios.put(
-      "http://localhost:3800/my/restaurant/editRestaurant",
+      API_BASE_URL + "my/restaurant/editRestaurant",
       { data: formData }
     );
     return response.data;

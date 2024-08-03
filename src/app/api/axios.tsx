@@ -2,12 +2,12 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { authApiSlice } from "../../features/auth/authApiSlice";
 import { store } from "../store";
 
-const BASE_URL = "http://localhost:3800";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-export default axios.create({ baseURL: BASE_URL });
+export default axios.create({ baseURL: API_BASE_URL });
 
 export const axiosPrivate = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_BASE_URL,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
@@ -18,7 +18,7 @@ export class GetAxiosAutoRefresh {
   private responseIntercept: number;
   constructor(token: string | null, contentType: string) {
     this.api = axios.create({
-      baseURL: BASE_URL,
+      baseURL: API_BASE_URL,
       headers: { "Content-Type": contentType },
     });
     this.requestIntercept = this.api.interceptors.request.use(
