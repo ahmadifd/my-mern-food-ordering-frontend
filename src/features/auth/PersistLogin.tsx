@@ -36,18 +36,30 @@ const PersistLogin = () => {
     if (!token && localStoragePersisit) verifyRefreshToken();
   }, []);
 
+  console.log("Hello PersistLogin", token, localStoragePersisit);
+
   let content;
   if (!localStoragePersisit) {
+    console.log(1);
     content = <Outlet />;
   } else if (isLoading) {
+    console.log(2);
+
     content = <h1>...isLoading</h1>;
   } else if (isError) {
-    if (typeof error === "object" && "error" in error) {
-      content = <Box>{`${error.error}`}</Box>;
+    console.log(3, error);
+
+    if (typeof error === "object") {
+      if ("error" in error) content = <Box>{`${error.error}`}</Box>;
+      if ("data" in error) content = <Box>{`${error?.data}`}</Box>;
     }
   } else if (isSuccess && trueSuccess) {
+    console.log(4);
+
     content = <Outlet />;
   } else if (token && isUninitialized) {
+    console.log(5);
+
     content = <Outlet />;
   }
   return content;
