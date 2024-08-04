@@ -17,12 +17,12 @@ const UserProfileForm = ({
   title = "User Profile",
   buttonText = "Submit",
 }: Props) => {
-  const [name, setName] = useState<string>(currentUser.name);
-  const [email, setEmail] = useState<string>(currentUser.email);
-  const [country, setCountry] = useState<string>(currentUser.country);
-  const [city, setCity] = useState<string>(currentUser.city);
+  const [name, setName] = useState<string>(currentUser?.name);
+  const [email, setEmail] = useState<string>(currentUser?.email);
+  const [country, setCountry] = useState<string>(currentUser?.country);
+  const [city, setCity] = useState<string>(currentUser?.city);
   const [addressLine1, setAddressLine1] = useState<string>(
-    currentUser.addressLine1
+    currentUser?.addressLine1
   );
 
   return (

@@ -26,7 +26,7 @@ const PersistLogin = () => {
           error &&
           typeof error === "object" &&
           "status" in error &&
-          error.status === 401
+          [401, 403].includes(Number(error.status))
         ) {
           setLocalStoragePersisit(false);
           navigate("/");
