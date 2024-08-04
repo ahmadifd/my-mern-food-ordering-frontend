@@ -8,12 +8,14 @@ import { RestaurantContext } from "../../context/RestaurantProvider";
 import { DetailsType, RestaurantType } from "../../types/Restaurant.types";
 import { MenuItem } from "../../types/MenuItem.types";
 import { AlertState, AlertType } from "../../types/Alert.types";
-import { useAppDispatch } from "../../app/store";
+import { useAppDispatch, useAppSelector } from "../../app/store";
 import {
   createMyRestaurant,
   editMyRestaurant,
 } from "../restaurant/myRestaurantSlice";
 import { AxiosError } from "axios";
+import { LoadingButton } from "@mui/lab";
+import { FetchingStatus } from "../../types/types";
 
 const ManageRestaurantPage = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +31,8 @@ const ManageRestaurantPage = () => {
   } = useContext(RestaurantContext);
 
   const [alert, setAlert] = useState<AlertState | null>(null);
+
+  const isLoading = useAppSelector((state) => state.myRestaurant.statusUpdate);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -115,9 +119,13 @@ const ManageRestaurantPage = () => {
       <ImageSection />
 
       <Box mt={1} sx={{ textAlign: "center" }}>
-        <Button type="submit" variant="contained">
+        <LoadingButton
+          loading={isLoading === FetchingStatus.loading}
+          type="submit"
+          variant="contained"
+        >
           Register
-        </Button>
+        </LoadingButton>
       </Box>
 
       {alert?.visible && (

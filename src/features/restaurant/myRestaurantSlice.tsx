@@ -17,7 +17,8 @@ enum FetchingStatus {
 }
 
 interface myRestaurantState {
-  status: FetchingStatus;
+  statusGet: FetchingStatus;
+  statusUpdate: FetchingStatus;
   error: SerializedError | null;
   restaurantInfo: RestaurantType | null;
 }
@@ -78,10 +79,10 @@ const myRestauranSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(getMyRestaurant.pending, (state) => {
-      state.status = FetchingStatus.loading;
+      state.statusGet = FetchingStatus.loading;
     });
     builder.addCase(getMyRestaurant.fulfilled, (state, action) => {
-      state.status = FetchingStatus.succeeded;
+      state.statusGet = FetchingStatus.succeeded;
       const data = action.payload;
       const restaurant = {
         details: {
@@ -101,10 +102,13 @@ const myRestauranSlice = createSlice({
       state.restaurantInfo = restaurant;
     });
     builder.addCase(getMyRestaurant.rejected, (state) => {
-      state.status = FetchingStatus.failed;
+      state.statusGet = FetchingStatus.failed;
+    });
+    builder.addCase(createMyRestaurant.pending, (state, _action) => {
+      state.statusUpdate = FetchingStatus.loading;
     });
     builder.addCase(createMyRestaurant.fulfilled, (state, action) => {
-      state.status = FetchingStatus.succeeded;
+      state.statusUpdate = FetchingStatus.succeeded;
       const data = action.payload;
       const restaurant = {
         details: {
@@ -123,8 +127,15 @@ const myRestauranSlice = createSlice({
 
       state.restaurantInfo = restaurant;
     });
+    builder.addCase(createMyRestaurant.rejected, (state, action) => {
+      state.error = action.error;
+      state.statusUpdate = FetchingStatus.failed;
+    });
+    builder.addCase(editMyRestaurant.pending, (state, _action) => {
+      state.statusUpdate = FetchingStatus.loading;
+    });
     builder.addCase(editMyRestaurant.fulfilled, (state, action) => {
-      state.status = FetchingStatus.succeeded;
+      state.statusUpdate = FetchingStatus.succeeded;
       const data = action.payload;
       const restaurant = {
         details: {
@@ -144,7 +155,7 @@ const myRestauranSlice = createSlice({
     });
     builder.addCase(editMyRestaurant.rejected, (state, action) => {
       state.error = action.error;
-      state.status = FetchingStatus.failed;
+      state.statusUpdate = FetchingStatus.failed;
     });
   },
 });

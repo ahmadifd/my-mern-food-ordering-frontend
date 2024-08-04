@@ -33,7 +33,11 @@ const PersistLogin = () => {
         }
       }
     };
-    if (!token && localStoragePersisit) verifyRefreshToken();
+    if (!token && localStoragePersisit) 
+      {
+        verifyRefreshToken();
+        console.log("PersistLogin-verifyRefreshToken");
+      }
   }, []);
 
   console.log("Hello PersistLogin", token, localStoragePersisit);

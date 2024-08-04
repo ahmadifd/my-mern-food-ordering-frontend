@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   TextField,
@@ -9,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./authApiSlice";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { LoadingButton } from '@mui/lab';
 
 const Login = () => {
   const location = useLocation();
@@ -16,7 +16,7 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
-  const [login] = useLoginMutation();
+  const [login , {isLoading}] = useLoginMutation();
   const [persist, setPersist] = useState<boolean>(false);
   const [_localStoragePersisit, setLocalStoragePersisit] =
     useLocalStorage<boolean>("persist", false);
@@ -31,6 +31,7 @@ const Login = () => {
         password,
       }).unwrap();
       setLocalStoragePersisit(persist);
+      console.log("Login-handleSubmit");
       navigate(from, { replace: true });
     } catch (error) {}
   };
@@ -91,9 +92,9 @@ const Login = () => {
           />
         </Box>
         <Box mt={1} sx={{ textAlign: "center" }}>
-          <Button type="submit" variant="contained" size="small">
+          <LoadingButton loading={isLoading} type="submit" variant="contained"  loadingPosition='center'  >
             Sign In
-          </Button>
+          </LoadingButton>
         </Box>
         <Box>
           <Link to="/"> Back to Home</Link>

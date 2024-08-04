@@ -26,7 +26,11 @@ const style = {
   borderRadius: 1,
 };
 
-const CheckoutButton = ({ onCheckout, disabled }: Props) => {
+const CheckoutButton = ({
+  onCheckout,
+  disabled,
+  isLoading: isLoadingCheckOut,
+}: Props) => {
   const { userId: currentuserId } = useAuth();
   const { data, isLoading: isGetUserLoading } = useGetUser(
     currentuserId,
@@ -56,13 +60,17 @@ const CheckoutButton = ({ onCheckout, disabled }: Props) => {
           }}
         >
           <Box>
-            <UserProfileForm
-              currentUser={user}
-              onSave={onCheckout}
-              isLoading={isGetUserLoading}
-              title="Confirm Deliery Details"
-              buttonText="Continue to payment"
-            />
+            {isGetUserLoading ? (
+              <h1>...isLoading</h1>
+            ) : (
+              <UserProfileForm
+                currentUser={user}
+                onSave={onCheckout}
+                isLoading={isLoadingCheckOut}
+                title="Confirm Deliery Details"
+                buttonText="Continue to payment"
+              />
+            )}
           </Box>
           <Box sx={{ display: "grid", justifyContent: "center" }}>
             <Button

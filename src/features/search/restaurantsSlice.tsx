@@ -7,13 +7,8 @@ import {
 import { RootState } from "../../app/store";
 import { GetAxiosAutoRefresh } from "../../app/api/axios";
 import { DbRestaurantType, RestaurantType } from "../../types/Restaurant.types";
+import { FetchingStatus } from "../../types/types";
 
-enum FetchingStatus {
-  "idle",
-  "loading",
-  "succeeded",
-  "failed",
-}
 
 interface ExtendedEntityAdapterState {
   status: FetchingStatus;
@@ -89,7 +84,7 @@ const restauranSlice = createSlice({
           isEditing: true,
         })
       );
-      state.count =action.payload.pagination.total;
+      state.count = action.payload.pagination.total;
 
       restaurantsAdapter.removeAll(state);
       restaurantsAdapter.upsertMany(state, loadedRestaurants);
@@ -135,5 +130,8 @@ export const {
 
 export const searchRestaurantsCount = (state: RootState) =>
   state.restaurants.count;
+
+export const isLoadingRestaurant = (state: RootState) =>
+  state.restaurants.status;
 
 export default restauranSlice.reducer;

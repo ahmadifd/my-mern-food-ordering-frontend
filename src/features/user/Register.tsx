@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { ROLES_LIST } from "../../types/ROLES_LIST";
 import useCreateUser from "../../hooks/useCreateUser";
 import { AlertState, AlertType } from "../../types/Alert.types";
+import { LoadingButton } from "@mui/lab";
 
 const Register = () => {
-  const { createUser } = useCreateUser();
+  const { createUser, isLoading } = useCreateUser();
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -20,7 +21,7 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createUser({
+    await createUser({
       name,
       email,
       roles,
@@ -173,9 +174,14 @@ const Register = () => {
           />
         </Box>
         <Box mt={1} sx={{ textAlign: "center" }}>
-          <Button type="submit" variant="contained" size="small">
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            size="small"
+            loading={isLoading}
+          >
             Register
-          </Button>
+          </LoadingButton>
         </Box>
 
         {alert?.visible && (

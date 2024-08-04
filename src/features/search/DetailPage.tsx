@@ -14,7 +14,7 @@ import { useCreateCheckoutSessionMutation } from "../order/orderApiSlice";
 
 const DetailPage = () => {
   const { restaurantId } = useParams();
-  const [createCheckoutSession] =
+  const [createCheckoutSession , {isLoading}] =
     useCreateCheckoutSessionMutation();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     const storedCartItems = sessionStorage.getItem(`cartItems-${restaurantId}`);
@@ -168,7 +168,7 @@ const DetailPage = () => {
                 </CardContent>
                 <CardContent>
                   <CheckoutButton
-                    isLoading={false}
+                    isLoading={isLoading}
                     onCheckout={onCheckout}
                     disabled={cartItems.length === 0}
                   />

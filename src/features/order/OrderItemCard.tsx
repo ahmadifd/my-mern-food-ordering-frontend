@@ -21,7 +21,7 @@ type Props = {
 const OrderItemCard = ({ order, showAlert }: Props) => {
   const [status, setStatus] = useState<OrderStatus>(order.status);
 
-  const [updateOrderStatus] = useUpdateOrderStatusMutation();
+  const [updateOrderStatus, { isLoading }] = useUpdateOrderStatusMutation();
 
   useEffect(() => {
     setStatus(order.status);
@@ -102,32 +102,36 @@ const OrderItemCard = ({ order, showAlert }: Props) => {
             ))}
           </Box>
           <Box mt={2}>
-            <TextField
-              inputProps={{
-                sx: { fontSize: "0.9rem", backgroundColor: "white" },
-              }}
-              InputLabelProps={{ sx: { fontSize: "0.9rem" } }}
-              label="What is the status of this order?"
-              select
-              fullWidth
-              size="small"
-              value={status}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const value = event.target.value;
-                handleStatusChange(value as OrderStatus);
-              }}
-              //error={!roles.length}
-            >
-              {ORDER_STATUS.map((item, index) => (
-                <MenuItem
-                  sx={{ fontSize: "0.9rem" }}
-                  key={index}
-                  value={item.value}
-                >
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
+            {isLoading ? (
+              <h2>...isLoading</h2>
+            ) : (
+              <TextField
+                inputProps={{
+                  sx: { fontSize: "0.9rem", backgroundColor: "white" },
+                }}
+                InputLabelProps={{ sx: { fontSize: "0.9rem" } }}
+                label="What is the status of this order?"
+                select
+                fullWidth
+                size="small"
+                value={status}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  const value = event.target.value;
+                  handleStatusChange(value as OrderStatus);
+                }}
+                //error={!roles.length}
+              >
+                {ORDER_STATUS.map((item, index) => (
+                  <MenuItem
+                    sx={{ fontSize: "0.9rem" }}
+                    key={index}
+                    value={item.value}
+                  >
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
           </Box>
         </Box>
       </CardContent>

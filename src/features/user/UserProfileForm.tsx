@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-
-import { Box, Button, TextField } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { Box, TextField } from "@mui/material";
 import { UserFormData } from "../../types/UserFormData.types";
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
 const UserProfileForm = ({
   onSave,
   currentUser,
+  isLoading,
   title = "User Profile",
   buttonText = "Submit",
 }: Props) => {
@@ -48,7 +49,11 @@ const UserProfileForm = ({
       }}
     >
       <Box
-        sx={{ textAlign: "center", fontWeight: "bold", marginBottom: "1em" }}
+        sx={{
+          textAlign: "center",
+          fontWeight: "bold",
+          marginBottom: "1em",
+        }}
       >
         {title}
       </Box>
@@ -121,9 +126,14 @@ const UserProfileForm = ({
       </Box>
 
       <Box mt={1} sx={{ textAlign: "center" }}>
-        <Button type="submit" variant="contained" size="small">
+        <LoadingButton
+          loading={isLoading}
+          type="submit"
+          variant="contained"
+          size="small"
+        >
           {buttonText}
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );

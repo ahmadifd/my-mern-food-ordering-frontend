@@ -13,6 +13,7 @@ import {
   searchRestaurantsCount,
   selectSearchedRestaurants,
 } from "./restaurantsSlice";
+import { FetchingStatus } from "../../types/types";
 
 export type SearchState = {
   searchQuery: string;
@@ -25,6 +26,7 @@ const SearchPage = () => {
   const { city } = useParams();
   const dispatch = useAppDispatch();
   const restaurants = useAppSelector(selectSearchedRestaurants);
+  const isLoading = useAppSelector((state) => state.restaurants.status);
   const restaurantsCount = useAppSelector(searchRestaurantsCount);
 
   console.log(restaurants);
@@ -97,74 +99,83 @@ const SearchPage = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
-    <Grid
-      sx={{
-        backgroundColor: "grey.100",
-        padding: "1em",
-        borderRadius: "0.5em",
-        minHeight:"100%"
-      }}
-      container
-      spacing={1}
-    >
-      <Grid item xs={12} md={3}>
-        <CuisineFilter
-          selectedCuisines={searchState.selectedCuisines}
-          onChange={setSelectedCuisines}
-          isExpanded={isExpanded}
-          onExpandedClick={() =>
-            setIsExpanded((prevIsExpanded) => !prevIsExpanded)
-          }
-        />
-      </Grid>
-      <Grid item xs={12} md={9}>
-        <Box>
-          <Box>
-            <SearchBar
-              searchQuery={searchState.searchQuery}
-              onSubmit={setSearchQuery}
-              placeHolder="Search by Cuisine or Restaurant Name"
-              onReset={resetSearch}
+    <>
+      {isLoading === FetchingStatus.loading ? (
+        <h1>...isLoading</h1>
+      ) : (
+        <Grid
+          sx={{
+            backgroundColor: "grey.100",
+            padding: "1em",
+            borderRadius: "0.5em",
+            minHeight: "100%",
+          }}
+          container
+          spacing={1}
+        >
+          <Grid item xs={12} md={3}>
+            <CuisineFilter
+              selectedCuisines={searchState.selectedCuisines}
+              onChange={setSelectedCuisines}
+              isExpanded={isExpanded}
+              onExpandedClick={() =>
+                setIsExpanded((prevIsExpanded) => !prevIsExpanded)
+              }
             />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              textWrap: "nowrap",
-              alignItems: "center",
-            }}
-            columnGap={3}
-          >
+          </Grid>
+          <Grid item xs={12} md={9}>
             <Box>
-              <SearchResultInfo total={restaurantsCount} city={city ?? ""} />
+              <Box>
+                <SearchBar
+                  searchQuery={searchState.searchQuery}
+                  onSubmit={setSearchQuery}
+                  placeHolder="Search by Cuisine or Restaurant Name"
+                  onReset={resetSearch}
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  textWrap: "nowrap",
+                  alignItems: "center",
+                }}
+                columnGap={3}
+              >
+                <Box>
+                  <SearchResultInfo
+                    total={restaurantsCount}
+                    city={city ?? ""}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    marginLeft: "auto",
+                  }}
+                  mt={1}
+                >
+                  <SortOptionDropdown
+                    sortOption={searchState.sortOption}
+                    onChange={(value) => setSortOption(value)}
+                  />
+                </Box>
+              </Box>
+              <Box>
+                {restaurants.map((restaurant, index) => (
+                  <SearchResultCard key={index} restaurant={restaurant} />
+                ))}
+              </Box>
+              <Box sx={{ display: "grid", justifyContent: "center" }}>
+                <PaginationSelector
+                  page={searchState.page}
+                  pages={Math.ceil(restaurantsCount / pageSize)}
+                  onPageChange={setPage}
+                />
+              </Box>
             </Box>
-            <Box
-              sx={{
-                marginLeft: "auto",
-              }}
-              mt={1}
-            >
-              <SortOptionDropdown
-                sortOption={searchState.sortOption}
-                onChange={(value) => setSortOption(value)}
-              />
-            </Box>
-          </Box>
-          <Box>
-            {restaurants.map((restaurant, index) => (
-              <SearchResultCard key={index} restaurant={restaurant} />
-            ))}
-          </Box>
-          <Box sx={{ display: "grid", justifyContent: "center" }}>
-            <PaginationSelector
-              page={searchState.page}
-              pages={Math.ceil(restaurantsCount / pageSize)}
-              onPageChange={setPage}
-            />
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+          </Grid>
+        </Grid>
+      )}
+    </>
   );
 };
 

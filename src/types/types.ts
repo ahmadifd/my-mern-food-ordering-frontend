@@ -42,3 +42,10 @@ export type DbRestaurant = {
     imageUrl: string;
     lastUpdated: string;
   };
+
+  export enum FetchingStatus {
+    "idle",
+    "loading",
+    "succeeded",
+    "failed",
+  }

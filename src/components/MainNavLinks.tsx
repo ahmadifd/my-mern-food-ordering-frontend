@@ -1,5 +1,5 @@
 import { Box, Button, Menu, MenuItem } from "@mui/material";
-import {  useState } from "react";
+import { useState } from "react";
 import { useLogOutMutation } from "../features/auth/authApiSlice";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ type Props = {
 const MainNavLinks = ({ email, isOwner, isUser }: Props) => {
   const [_localStoragePersisit, setLocalStoragePersisit] =
     useLocalStorage<boolean>("persist", false);
-  const [logOut] = useLogOutMutation();
+  const [logOut, { isLoading }] = useLogOutMutation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -26,8 +26,10 @@ const MainNavLinks = ({ email, isOwner, isUser }: Props) => {
 
   const signOut = async () => {
     setLocalStoragePersisit(false);
-    setAnchorEl(null);
+
     await logOut(null);
+
+    setAnchorEl(null);
     navigate("/");
     //window.location.replace("/");
   };
@@ -95,7 +97,9 @@ const MainNavLinks = ({ email, isOwner, isUser }: Props) => {
         >
           User Profile
         </MenuItem>
-        <MenuItem onClick={signOut}>Log Out</MenuItem>
+        <MenuItem onClick={signOut}>
+          {isLoading ? "... Logging Out" : " Log Out"}
+        </MenuItem>
       </Menu>
     </Box>
   );

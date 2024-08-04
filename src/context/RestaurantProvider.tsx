@@ -6,6 +6,7 @@ import {
   getMyRestaurant,
   myRestaurant,
 } from "../features/restaurant/myRestaurantSlice";
+import { FetchingStatus } from "../types/types";
 
 type RestaurantContextType = {
   restaurant: RestaurantType | null;
@@ -28,6 +29,7 @@ const RestaurantProvider = ({ children }: ChildrenType) => {
   const dispatch = useAppDispatch();
 
   const currentRestaurant = useAppSelector(myRestaurant);
+  const isLoading = useAppSelector((state) => state.myRestaurant.statusGet);
 
   const [restaurant, setRestaurant] = useState<RestaurantType>({
     details: {
@@ -77,7 +79,7 @@ const RestaurantProvider = ({ children }: ChildrenType) => {
         setRestaurant,
       }}
     >
-      {children}
+      {isLoading === FetchingStatus.loading ? <h1>...isLoading</h1> : children}
     </RestaurantContext.Provider>
   );
 };
