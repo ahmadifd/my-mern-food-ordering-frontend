@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Button, TextField } from "@mui/material";
 import { UserFormData } from "../../types/UserFormData.types";
@@ -17,13 +17,21 @@ const UserProfileForm = ({
   title = "User Profile",
   buttonText = "Submit",
 }: Props) => {
-  const [name, setName] = useState<string>(currentUser?.name);
-  const [email, setEmail] = useState<string>(currentUser?.email);
-  const [country, setCountry] = useState<string>(currentUser?.country);
-  const [city, setCity] = useState<string>(currentUser?.city);
-  const [addressLine1, setAddressLine1] = useState<string>(
-    currentUser?.addressLine1
-  );
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [country, setCountry] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [addressLine1, setAddressLine1] = useState<string>("");
+
+  useEffect(() => {
+    if (currentUser) {
+      setName(currentUser?.name);
+      setEmail(currentUser?.email);
+      setCountry(currentUser?.country);
+      setCity(currentUser?.city);
+      setAddressLine1(currentUser?.addressLine1);
+    }
+  }, [currentUser]);
 
   return (
     <Box
