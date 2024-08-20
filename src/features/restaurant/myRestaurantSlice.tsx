@@ -24,7 +24,8 @@ interface myRestaurantState {
 }
 
 const initialState: myRestaurantState = {
-  status: FetchingStatus.idle,
+  statusGet: FetchingStatus.idle,
+  statusUpdate: FetchingStatus.idle,
   error: null,
   restaurantInfo: null,
 };
@@ -35,10 +36,13 @@ export const getMyRestaurant = createAsyncThunk(
   "restaurant/getMyRestaurant",
   async (_arg, api) => {
     const token = (api.getState() as RootState).auth.token;
+    console.log("getMyRestaurant-token", token);
     const axios = new GetAxiosAutoRefresh(token, "application/json");
     const response = await axios.get(
       API_BASE_URL + RESTAURANT_URL + `/getRestaurant`
     );
+    console.log(response);
+    axios.eject();
     if (!response.data) throw new Error("No Content");
 
     return response.data;
@@ -55,6 +59,7 @@ export const createMyRestaurant = createAsyncThunk(
       API_BASE_URL + RESTAURANT_URL + "/createRestaurant",
       { data: formData }
     );
+    console.log(response);
     return response.data;
   }
 );
@@ -69,6 +74,7 @@ export const editMyRestaurant = createAsyncThunk(
       API_BASE_URL + RESTAURANT_URL + "/editRestaurant",
       { data: formData }
     );
+    console.log(response);
     return response.data;
   }
 );

@@ -15,6 +15,7 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, api) => {
     const token = (api.getState() as RootState).auth.token;
     if (token) {
+      console.log("fetchBaseQuery",token);
       headers.set("authorization", `Bearer ${token}`);
     }
     return headers;
@@ -42,7 +43,7 @@ const baseQueryWithReauth = async (
     } else {
       if (refreshResult?.error?.status === 403) {
         api.dispatch(signOut());
-        refreshResult.error.data = { message: "Your login has expired." };
+        refreshResult.error.data = { message: "api.dispatch(signOut());Your login has expired." };
       }
       return refreshResult;
     }

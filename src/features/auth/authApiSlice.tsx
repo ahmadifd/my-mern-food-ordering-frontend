@@ -46,6 +46,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        console.log("authApiSlice-Refresh");
         try {
           const result = await queryFulfilled;
           if (result)

@@ -37,6 +37,24 @@ const ManageRestaurantPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    console.log(restaurant!.menuItems?.length);
+    if (!restaurant!.menuItems?.length) {
+      setAlert({
+        message: "menu cant be empty",
+        visible: true,
+        type: AlertType.error,
+      });
+      return;
+    }
+    if (!restaurant!.cuisines?.length) {
+      setAlert({
+        message: "cuisines cant be empty",
+        visible: true,
+        type: AlertType.error,
+      });
+      return;
+    }
+
     const formData = new FormData();
     formData.append("restaurantName", restaurant!.details!.restaurantName);
     formData.append("city", restaurant!.details!.city);
@@ -75,6 +93,7 @@ const ManageRestaurantPage = () => {
         type: AlertType.success,
       });
     } catch (error) {
+      console.log(error);
       setAlert({
         message: (error as AxiosError).message,
         visible: true,

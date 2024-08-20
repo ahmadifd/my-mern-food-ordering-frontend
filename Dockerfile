@@ -11,12 +11,14 @@ RUN mkdir data
 
 COPY --chown=app:node package*.json ./
 
-RUN npm install
+# RUN npm install
 
 COPY --chown=app:node . .
 
-ENV Owner="Farshid Ahmadi"
+# ENV Owner="Farshid Ahmadi"
+# ENV VITE_APP_URL=http://localhost:1000
+# ENV VITE_API_BASE_URL=http://localhost:1001
 
-EXPOSE 7000
+EXPOSE 1000
 
-CMD [ "npm" , "run" , "dev" ]
+# CMD [ "npm" , "run" , "dev" ]

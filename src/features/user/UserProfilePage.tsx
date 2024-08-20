@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import useEditUser from "../../hooks/useEditUser";
-import {
-  Alert,
-  Box,
-  MenuItem,
-  Snackbar,
-  TextField,
-} from "@mui/material";
+import { Alert, Box, MenuItem, Snackbar, TextField } from "@mui/material";
 import { ROLES_LIST } from "../../types/ROLES_LIST";
 import useGetUser from "../../hooks/useGetUser";
 import useAuth from "../../hooks/useAuth";
@@ -27,7 +21,7 @@ const UserProfilePage = () => {
   const [password, setPassword] = useState<string>("");
   const [roles, setRoles] = useState<string[]>([]);
   const [alert, setAlert] = useState<AlertState | null>(null);
-  const { editUser, isLoading:isLoadingUpdate } = useEditUser(currentuserId);
+  const { editUser, isLoading: isLoadingUpdate } = useEditUser(currentuserId);
 
   useEffect(() => {
     if (user) {
@@ -39,6 +33,8 @@ const UserProfilePage = () => {
       setRoles(user.roles);
     }
   }, [user]);
+
+  console.log("login", currentuserId, currentUserRoles, data, isLoadingGet);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -198,7 +194,11 @@ const UserProfilePage = () => {
               />
             </Box>
             <Box mt={1} sx={{ textAlign: "center" }}>
-              <LoadingButton type="submit" variant="contained" loading={isLoadingUpdate}>
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={isLoadingUpdate}
+              >
                 Update
               </LoadingButton>
             </Box>

@@ -13,13 +13,18 @@ const PersistLogin = () => {
   const token = useAppSelector(selectCurrentToken);
   const navigate = useNavigate();
   const [trueSuccess, setTrueSuccess] = useState(false);
-  const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] =
-    useRefreshMutation();
+  const [
+    refresh,
+    { isUninitialized, isLoading, isSuccess, isError, error, reset },
+  ] = useRefreshMutation();
+
+  console.log("localStoragePersisit", localStoragePersisit);
 
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
         await refresh(null).unwrap();
+        console.log("Refresh");
         setTrueSuccess(true);
       } catch (error) {
         if (
@@ -29,18 +34,27 @@ const PersistLogin = () => {
           [401, 403].includes(Number(error.status))
         ) {
           setLocalStoragePersisit(false);
-          navigate("/");
+          window.location.href = "/";
+          //navigate("/");
         }
       }
     };
-    if (!token && localStoragePersisit) 
-      {
-        verifyRefreshToken();
-        console.log("PersistLogin-verifyRefreshToken");
-      }
+    if (!token && localStoragePersisit) {
+      verifyRefreshToken();
+      console.log("PersistLogin-verifyRefreshToken");
+    }
   }, []);
 
-  console.log("Hello PersistLogin", token, localStoragePersisit);
+  console.log(
+    "Hello PersistLogin",
+    token,
+    localStoragePersisit,
+    isUninitialized,
+    isLoading,
+    isSuccess,
+    isError,
+    error
+  );
 
   let content;
   if (!localStoragePersisit) {
